@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossier Personnage — BASWEYY GUIDE</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+
+    <style>
+        :root {
+            --elem-color: #8c52ff;
+        }
+
+        body {
+            background-color: var(--bg-primary, #050507);
+            color: var(--text-primary, #d1d1d6);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .char-dossier-layout {
+            max-width: 1400px;
+            margin: 30px auto 80px;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .char-sidebar {
+            background: var(--bg-card, #0b0b0f);
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        .char-full-artwork {
+            width: 100%;
+            height: 580px;
+            background-size: cover;
+            background-position: center top;
+            background-color: var(--bg-secondary, #121216);
+        }
+
+        .char-sidebar-footer {
+            padding: 24px;
+            background: var(--bg-card, #0b0b0f);
+        }
+
+        .char-rarity-badge {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #ffd700;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .char-name-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-title, #ffffff);
+            margin: 0 0 10px 0;
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        .char-tags-sub {
+            font-size: 0.8rem;
+            color: var(--text-secondary, #888892);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .char-pills-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .char-mini-pill {
+            background: var(--bg-pill, rgba(255, 255, 255, 0.04));
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+            color: var(--text-primary, #cfcfd4);
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .char-mini-pill.active-elem {
+            border-color: var(--elem-color);
+            color: var(--elem-color);
+            background: rgba(140, 82, 255, 0.1);
+        }
+
+        .char-content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            min-width: 0;
+        }
+
+        .char-top-tabs {
+            display: flex;
+            gap: 30px;
+            border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+            padding-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary, #666670);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 6px 0;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .nav-tab-btn:hover { color: var(--text-primary); }
+        .nav-tab-btn.active { color: var(--text-title, #ffffff); }
+        .nav-tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -13px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--elem-color);
+        }
+
+        .nav-tab-btn span {
+            font-size: 0.65rem;
+            background: var(--bg-pill, rgba(255,255,255,0.08));
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 6px;
+            color: var(--text-secondary);
+        }
+
+        .dossier-panel { display: none; }
+        .dossier-panel.active { display: block; }
+
+        .quote-box {
+            position: relative;
+            padding: 24px 40px;
+            margin-bottom: 30px;
+            border-left: 2px solid var(--elem-color);
+            border-right: 2px solid var(--elem-color);
+            background: var(--bg-card, rgba(255, 255, 255, 0.01));
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .quote-box::before {
+            content: "“";
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            font-size: 3rem;
+            color: var(--elem-color);
+            opacity: 0.4;
+            line-height: 1;
+        }
+        .quote-author {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            font-style: normal;
+            letter-spacing: 2px;
+            color: var(--elem-color);
+            text-transform: uppercase;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+        }
+
+        .section-header-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--elem-color);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color, rgba(255, 255, 255, 0.08));
+        }
+
+        .dossier-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .dossier-info-card {
+            background: var(--bg-card, #0b0b0f);
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.06));
+            border-radius: 8px;
+            padding: 14px 18px;
+        }
+
+        .dossier-label {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary, #666670);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .dossier-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary, #f0f0f5);
+        }
+
+        .text-block-box {
+            background: var(--bg-card, #0b0b0f);
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.06));
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            color: var(--text-secondary, #a0a0ab);
+            font-size: 0.95rem;
+        }
+        .text-block-box p { margin: 0 0 12px 0; }
+        .text-block-box p:last-child { margin-bottom: 0; }
+
+        .drop-cap {
+            float: left;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            line-height: 0.8;
+            padding-top: 4px;
+            padding-right: 10px;
+            padding-bottom: 2px;
+            color: var(--elem-color);
+            font-weight: 700;
+        }
+
+        .back-link-top {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--text-secondary, #888);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .back-link-top:hover { color: var(--text-primary, #fff); }
+
+        .skills-container-horizontal {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .skills-horizontal-bar {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 10px;
+            width: 100%;
+        }
+
+        .skill-tab-card {
+            position: relative;
+            background: var(--bg-card, #0b0b0f);
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+            border-radius: 6px;
+            padding: 10px 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            min-width: 0;
+        }
+
+        .skill-tab-card:hover {
+            border-color: var(--border-color, rgba(255, 255, 255, 0.25));
+            background: var(--bg-hover, #121218);
+        }
+
+        .skill-tab-card.active {
+            border-color: #ff3344;
+            box-shadow: 0 0 10px rgba(255, 51, 68, 0.2);
+            background: rgba(255, 51, 68, 0.05);
+        }
+
+        .skill-badge-tag {
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            background: #ffffff;
+            color: #000000;
+            font-size: 0.55rem;
+            font-weight: 800;
+            padding: 2px 4px;
+            border-top-left-radius: 5px;
+            border-bottom-right-radius: 4px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            line-height: 1;
+            z-index: 2;
+        }
+
+        .skill-ico-img {
+            width: 32px;
+            height: 32px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 4px;
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.15));
+            flex-shrink: 0;
+            margin-top: 4px;
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        .skill-card-info {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .skill-card-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-title, #ffffff);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .skill-card-sub {
+            font-size: 0.6rem;
+            color: var(--text-secondary, #777780);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .skill-details-card {
+            background: var(--bg-card, #0b0b0f);
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+            border-radius: 8px;
+            padding: 24px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .skill-level-card {
+            background: var(--bg-primary, #060608);
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.06));
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 25px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .skill-level-bar {
+            width: 100%;
+            height: 6px;
+            background: #1a1a24;
+            border-radius: 3px;
+            position: relative;
+            margin: 15px 0 8px 0;
+        }
+
+        .skill-level-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: var(--elem-color);
+            border-radius: 3px;
+        }
+
+        .skill-level-thumb {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translate(50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--elem-color);
+        }
+
+        @media(max-width: 1100px) {
+            .skills-horizontal-bar {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        @media(max-width: 700px) {
+            .skills-horizontal-bar {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media(max-width: 500px) {
+            .skills-horizontal-bar {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="site-header"></div>
+
+    <main style="max-width: 1400px; margin: 20px auto; padding: 0 24px;">
+        <a href="characters.html" class="back-link-top">← Retour aux personnages</a>
+    </main>
+
+    <div id="character-container">
+        <div style="text-align: center; padding: 100px 0; color: #666;">Chargement du dossier...</div>
+    </div>
+
+    <!-- FOOTER COMPLET -->
+    <footer class="site-footer" style="margin-top: 80px;">
+        <div class="footer-main">
+            <div class="container footer-container">
+                <div class="footer-brand">
+                    <a href="../index.html" class="footer-logo">
+                        <span class="footer-logo-main">BASWEYY</span>
+                        <span class="footer-logo-sub">GUIDE</span>
+                    </a>
+                    <p class="footer-description">L'archive communautaire dédiée à Silver Palace.</p>
+                </div>
+                <div class="footer-column">
+                    <span class="footer-column-title">NAVIGATION</span>
+                    <a href="../index.html">Accueil</a>
+                    <a href="guides.html">Guides</a>
+                    <a href="characters.html">Personnages</a>
+                    <a href="teams.html">Teams</a>
+                    <a href="tier-list.html">Tier List</a>
+                    <a href="news.html">Actualités</a>
+                </div>
+                <div class="footer-column">
+                    <span class="footer-column-title">COMMUNAUTÉ</span>
+                    <a href="#" target="_blank">Discord</a>
+                    <a href="#" target="_blank">Twitch</a>
+                    <a href="#" target="_blank">TikTok</a>
+                    <a href="#" target="_blank">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <span>© 2026 BASWEYY GUIDE</span>
+                <span>Site communautaire non officiel</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/components/navbar.js"></script>
+    <script src="../js/data/characters.js"></script>
+    <script>
+        let currentCharacter = null;
+
+        // Fonction pour mettre tous les chiffres et pourcentages en gras
+        function formatNumbersBold(text) {
+            if (!text) return '';
+            return text.replace(/(\d+[\d,.]*%?|\d+)/g, '<strong>$&</strong>');
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const charId = params.get("id");
+            const container = document.getElementById("character-container");
+
+            if (!charId || typeof charactersData === "undefined") {
+                container.innerHTML = `<div style="text-align:center; padding:80px; color:#fff;">Personnage introuvable.</div>`;
+                return;
+            }
+
+            currentCharacter = charactersData.find(c => c.id === charId);
+
+            if (!currentCharacter) {
+                container.innerHTML = `<div style="text-align:center; padding:80px; color:#fff;">Ce personnage n'existe pas dans la base de données.</div>`;
+                return;
+            }
+
+            // Gestion dynamique de la couleur selon l'élément (Blanc pour Alba, etc.)
+            let elemColor = "#8c52ff";
+            const elemLower = (currentCharacter.elem || "").toLowerCase();
+            if (elemLower.includes("alba")) elemColor = "#FFFFFF";
+            else if (elemLower.includes("ignis") || elemLower.includes("feu")) elemColor = "#ff7700";
+            else if (elemLower.includes("glacies") || elemLower.includes("glace")) elemColor = "#4da6ff";
+            else if (elemLower.includes("fulgur") || elemLower.includes("fulmen") || elemLower.includes("foudre")) elemColor = "#ffd700";
+            else if (elemLower.includes("gravitas")) elemColor = "#a855f7";
+            else if (elemLower.includes("radiatio") || elemLower.includes("wind")) elemColor = "#2ecc71";
+
+            document.documentElement.style.setProperty('--elem-color', elemColor);
+
+            const starsStr = "★".repeat(currentCharacter.star);
+            const firstLetter = currentCharacter.name ? currentCharacter.name.charAt(0) : "C";
+            const displayArtwork = currentCharacter.fullImage || currentCharacter.image;
+
+            const defaultSkill = currentCharacter.skills && currentCharacter.skills.normal ? currentCharacter.skills.normal : {
+                title: "Attaque Basique",
+                desc: "Description indisponible.",
+                scaling: "• Données non renseignées"
+            };
+
+            container.innerHTML = `
+                <div class="char-dossier-layout">
+                    <!-- GAUCHE : ARTWORK -->
+                    <div class="char-sidebar">
+                        <div class="char-full-artwork" style="background-image: url('${displayArtwork}');"></div>
+                        <div class="char-sidebar-footer">
+                            <div class="char-rarity-badge">${currentCharacter.star}★ Charactère</div>
+                            <h1 class="char-name-heading">${currentCharacter.name}</h1>
+                            <div class="char-tags-sub">${currentCharacter.elem} &bull; ${currentCharacter.roleLabel || currentCharacter.role}</div>
+                            
+                            <div class="char-pills-row">
+                                <span class="char-mini-pill active-elem">Grade ${currentCharacter.star}</span>
+                                <span class="char-mini-pill active-elem">${currentCharacter.elem}</span>
+                                <span class="char-mini-pill">Silver Palace</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DROITE : CONTENU -->
+                    <div class="char-content-area">
+                        <div class="char-top-tabs">
+                            <button class="nav-tab-btn active" onclick="switchDossierTab('profil', event)">Profil</button>
+                            <button class="nav-tab-btn" onclick="switchDossierTab('competences', event)">Compétences</button>
+                            <button class="nav-tab-btn" onclick="switchDossierTab('equipements', event)">Équipement</button>
+                            <button class="nav-tab-btn" onclick="switchDossierTab('teams', event)">Teams</button>
+                        </div>
+
+                        <!-- PANNEAU PROFIL -->
+                        <div id="panel-profil" class="dossier-panel active">
+                            ${currentCharacter.quote ? `
+                                <div class="quote-box">
+                                    « ${currentCharacter.quote} »
+                                    <span class="quote-author">— ${currentCharacter.name}</span>
+                                </div>
+                            ` : ''}
+
+                            <div class="section-header-title">◆ Dossier & Caractéristiques</div>
+                            <div class="dossier-grid">
+                                <div class="dossier-info-card">
+                                    <span class="dossier-label">Épithète</span>
+                                    <span class="dossier-value">${currentCharacter.epithete || 'N/A'}</span>
+                                </div>
+                                <div class="dossier-info-card">
+                                    <span class="dossier-label">Espèces</span>
+                                    <span class="dossier-value">${currentCharacter.especes || 'Humain'}</span>
+                                </div>
+                                <div class="dossier-info-card">
+                                    <span class="dossier-label">Genre</span>
+                                    <span class="dossier-value">${currentCharacter.genre || 'N/A'}</span>
+                                </div>
+                                <div class="dossier-info-card">
+                                    <span class="dossier-label">Profession</span>
+                                    <span class="dossier-value">${currentCharacter.profession || currentCharacter.roleLabel}</span>
+                                </div>
+                                <div class="dossier-info-card">
+                                    <span class="dossier-label">Affiliation</span>
+                                    <span class="dossier-value">${currentCharacter.affiliation || 'Silver Palace'}</span>
+                                </div>
+                                <div class="dossier-info-card">
+                                    <span class="dossier-label">Élément</span>
+                                    <span class="dossier-value" style="color: var(--elem-color);">${currentCharacter.elem}</span>
+                                </div>
+                                <div class="dossier-info-card">
+                                    <span class="dossier-label">Arme</span>
+                                    <span class="dossier-value">${currentCharacter.arme || 'Arme standard'}</span>
+                                </div>
+                                <div class="dossier-info-card">
+                                    <span class="dossier-label">Rareté</span>
+                                    <span class="dossier-value">${starsStr}</span>
+                                </div>
+                                <div class="dossier-info-card">
+                                    <span class="dossier-label">Sortie</span>
+                                    <span class="dossier-value">${currentCharacter.version || 'Version 1.0'}</span>
+                                </div>
+                            </div>
+
+                            <div class="section-header-title">◆ Introduction</div>
+                            <div class="text-block-box">
+                                <p>
+                                    <span class="drop-cap">${firstLetter}</span>
+                                    ${currentCharacter.introduction || 'Informations d\'introduction en cours de rédaction.'}
+                                </p>
+                            </div>
+
+                            ${currentCharacter.personnalite ? `
+                                <div class="section-header-title">◆ Personnalité & Lore</div>
+                                <div class="text-block-box">
+                                    <p>${currentCharacter.personnalite}</p>
+                                </div>
+                            ` : ''}
+                        </div>
+
+                        <!-- PANNEAU COMPETENCES HORIZONTAL -->
+                        <div id="panel-competences" class="dossier-panel">
+                            <div class="section-header-title">◆ Compétences</div>
+                            <div class="skills-container-horizontal">
+                                
+                                <!-- BARRE DES 5 COMPÉTENCES EN LIGNE -->
+                                <div class="skills-horizontal-bar">
+                                    <div class="skill-tab-card active" onclick="selectSkill('normal', event)">
+                                        <span class="skill-badge-tag">ATK</span>
+                                        <div class="skill-ico-img" style="background-image: url('../assets/images/skill_normal.png');"></div>
+                                        <div class="skill-card-info">
+                                            <span class="skill-card-title">${currentCharacter.skills?.normal?.title || 'Attaque Basique'}</span>
+                                            <span class="skill-card-sub">Attaque de base</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="skill-tab-card" onclick="selectSkill('skill', event)">
+                                        <span class="skill-badge-tag">SKL</span>
+                                        <div class="skill-ico-img" style="background-image: url('../assets/images/skill_active.png');"></div>
+                                        <div class="skill-card-info">
+                                            <span class="skill-card-title">${currentCharacter.skills?.skill?.title || 'Compétence'}</span>
+                                            <span class="skill-card-sub">Compétence</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="skill-tab-card" onclick="selectSkill('ult', event)">
+                                        <span class="skill-badge-tag">ULT</span>
+                                        <div class="skill-ico-img" style="background-image: url('../assets/images/skill_ult.png');"></div>
+                                        <div class="skill-card-info">
+                                            <span class="skill-card-title">${currentCharacter.skills?.ult?.title || 'Ultime'}</span>
+                                            <span class="skill-card-sub">Ultimate</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="skill-tab-card" onclick="selectSkill('dodge', event)">
+                                        <span class="skill-badge-tag">TAC</span>
+                                        <div class="skill-ico-img" style="background-image: url('../assets/images/skill_dodge.png');"></div>
+                                        <div class="skill-card-info">
+                                            <span class="skill-card-title">${currentCharacter.skills?.dodge?.title || 'Assaut Tactique'}</span>
+                                            <span class="skill-card-sub">Assaut Tactique</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="skill-tab-card" onclick="selectSkill('passive', event)">
+                                        <span class="skill-badge-tag">PAS</span>
+                                        <div class="skill-ico-img" style="background-image: url('../assets/images/skill_passive.png');"></div>
+                                        <div class="skill-card-info">
+                                            <span class="skill-card-title">${currentCharacter.skills?.passive?.title || 'Passif'}</span>
+                                            <span class="skill-card-sub">Passif</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- AFFICHAGE DU DETAIL EN DESSOUS -->
+                                <div class="skill-details-card" id="skill-detail-box">
+                                    <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-secondary, #888); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">EFFET</div>
+                                    <p id="skill-desc" style="color: var(--text-secondary, #a0a0ab); line-height: 1.6; white-space: pre-line; margin: 0;">
+                                        ${formatNumbersBold(defaultSkill.desc)}
+                                    </p>
+
+                                    <!-- SECTION MULTIPLICATEURS LVL 20 -->
+                                    <div class="skill-level-card">
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; color: var(--text-secondary, #888);">NIVEAU DE COMPÉTENCE</span>
+                                            <span style="font-size: 0.85rem; font-weight: 700; color: var(--elem-color);">Nv. 20</span>
+                                        </div>
+                                        <div class="skill-level-bar">
+                                            <div class="skill-level-progress">
+                                                <div class="skill-level-thumb"></div>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-secondary, #666); margin-bottom: 20px;">
+                                            <span>1</span>
+                                            <span>5</span>
+                                            <span>10</span>
+                                            <span>15</span>
+                                            <span>20</span>
+                                        </div>
+                                        <span id="skill-scaling" style="display: block; white-space: pre-line; font-size: 0.9rem; color: var(--text-primary, #ddd); line-height: 1.8;">
+                                            ${formatNumbersBold(defaultSkill.scaling)}
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- PANNEAU EQUIPEMENTS -->
+                        <div id="panel-equipements" class="dossier-panel">
+                            <div class="section-header-title">◆ Équipement & Armes Recommandés</div>
+                            <div id="equipment-container">
+                                <!-- Rempli dynamiquement par renderEquipment() avec support d'images -->
+                            </div>
+                        </div>
+
+                        <!-- PANNEAU TEAMS -->
+                        <div id="panel-teams" class="dossier-panel">
+                            <div class="section-header-title">◆ Compositions d'Équipe</div>
+                            <div id="teams-container">
+                                <!-- Rempli dynamiquement par renderTeams() -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Initialisation des sections dynamiques
+            renderEquipment();
+            renderTeams();
+        });
+
+        function switchDossierTab(tabName, event) {
+            document.querySelectorAll('.dossier-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+
+            const targetPanel = document.getElementById('panel-' + tabName);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+            }
+            event.currentTarget.classList.add('active');
+        }
+
+        function selectSkill(type, event) {
+            document.querySelectorAll('.skill-tab-card').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            const descElem = document.getElementById('skill-desc');
+            const scalingElem = document.getElementById('skill-scaling');
+
+            if (currentCharacter && currentCharacter.skills && currentCharacter.skills[type]) {
+                const s = currentCharacter.skills[type];
+                descElem.innerHTML = formatNumbersBold(s.desc);
+                scalingElem.innerHTML = formatNumbersBold(s.scaling || '• Données non renseignées');
+            }
+        }
+
+        // Rendu dynamique de l'équipement avec gestion des images
+        function renderEquipment() {
+            const eqContainer = document.getElementById('equipment-container');
+            
+            if (!currentCharacter.equipment) {
+                eqContainer.innerHTML = `
+                    <div class="text-block-box">
+                        <p>L'arsenal optimal pour ${currentCharacter.name} est en cours de préparation.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const eq = currentCharacter.equipment;
+            let html = '';
+
+            // 1. Arme / Épiphanie Recommandée
+            if (eq.weapon) {
+                html += `
+                    <div class="text-block-box" style="margin-bottom: 20px; display: flex; gap: 20px; align-items: flex-start;">
+                        ${eq.weapon.image ? `<div style="width: 70px; height: 70px; background-image: url('${eq.weapon.image}'); background-size: cover; background-position: center; border-radius: 8px; border: 1px solid var(--elem-color); flex-shrink: 0;"></div>` : ''}
+                        <div>
+                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--elem-color); letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 4px;">ARME / ÉPIPHANIE RECOMMANDÉE</span>
+                            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: #fff; margin: 0 0 4px 0;">${eq.weapon.name}</h3>
+                            <span style="font-size: 0.75rem; color: #888; display: block; margin-bottom: 8px; text-transform: uppercase;">Type : ${eq.weapon.type} ${eq.weapon.addendum ? '• ' + eq.weapon.addendum : ''}</span>
+                            <p style="color: #a0a0ab; margin: 0; font-size: 0.9rem;">${eq.weapon.desc}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 2. Arme Alternative
+            if (eq.weaponAlternative) {
+                html += `
+                    <div class="text-block-box" style="margin-bottom: 20px; display: flex; gap: 20px; align-items: flex-start; opacity: 0.85;">
+                        ${eq.weaponAlternative.image ? `<div style="width: 70px; height: 70px; background-image: url('${eq.weaponAlternative.image}'); background-size: cover; background-position: center; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0;"></div>` : ''}
+                        <div>
+                            <span style="font-size: 0.75rem; font-weight: 700; color: #aaa; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 4px;">ALTERNATIVE</span>
+                            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: #fff; margin: 0 0 4px 0;">${eq.weaponAlternative.name}</h3>
+                            <span style="font-size: 0.75rem; color: #888; display: block; margin-bottom: 8px; text-transform: uppercase;">Type : ${eq.weaponAlternative.type}</span>
+                            <p style="color: #a0a0ab; margin: 0; font-size: 0.9rem;">${eq.weaponAlternative.desc}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 3. Motif
+            if (eq.motif) {
+                html += `
+                    <div class="section-header-title" style="margin-top: 30px;">◆ Motif</div>
+                    <div class="text-block-box" style="margin-bottom: 20px; display: flex; gap: 20px; align-items: flex-start;">
+                        ${eq.motif.image ? `<div style="width: 70px; height: 70px; background-image: url('${eq.motif.image}'); background-size: cover; background-position: center; border-radius: 8px; border: 1px solid var(--elem-color); flex-shrink: 0;"></div>` : ''}
+                        <div>
+                            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: #fff; margin: 0 0 6px 0;">${eq.motif.name}</h3>
+                            <p style="color: #a0a0ab; margin: 0; font-size: 0.9rem;">${eq.motif.desc}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 4. Sets d'Échos / Outils
+            if (eq.echoSets && eq.echoSets.length > 0) {
+                html += `<div class="section-header-title" style="margin-top: 30px;">◆ Sets d'Échos Recommandés</div>`;
+                eq.echoSets.forEach(set => {
+                    html += `
+                        <div class="text-block-box" style="margin-bottom: 12px; padding: 16px 20px; display: flex; gap: 20px; align-items: flex-start;">
+                            ${set.image ? `<div style="width: 60px; height: 60px; background-image: url('${set.image}'); background-size: cover; background-position: center; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0;"></div>` : ''}
+                            <div>
+                                <h4 style="font-size: 0.95rem; font-weight: 700; color: #fff; margin: 0 0 6px 0;">${set.name}</h4>
+                                <p style="color: #a0a0ab; margin: 0; font-size: 0.85rem;">${set.effect}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            // 5. Statistiques Prioritaires
+            if (eq.statsPriority) {
+                html += `
+                    <div class="section-header-title" style="margin-top: 30px;">◆ Statistiques Prioritaires</div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                        <div class="dossier-info-card">
+                            <span class="dossier-label">Statistiques Principales</span>
+                            <span class="dossier-value" style="font-size: 0.85rem; color: var(--elem-color);">${eq.statsPriority.main}</span>
+                        </div>
+                        <div class="dossier-info-card">
+                            <span class="dossier-label">Sous-statistiques</span>
+                            <span class="dossier-value" style="font-size: 0.85rem; color: #ddd;">${eq.statsPriority.sub}</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            eqContainer.innerHTML = html;
+        }
+
+        // Rendu dynamique des équipes avec liens cliquables vers les personnages
+        function renderTeams() {
+            const teamsContainer = document.getElementById('teams-container');
+            
+            if (!currentCharacter.teams || currentCharacter.teams.length === 0) {
+                teamsContainer.innerHTML = `
+                    <div class="text-block-box">
+                        <p>Les meilleures synergies d'équipe avec ${currentCharacter.name} seront bientôt disponibles.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+
+            if (currentCharacter.teams.length > 1) {
+                html += `<div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">`;
+                currentCharacter.teams.forEach((team, index) => {
+                    const isSelected = index === 0;
+                    html += `
+                        <button class="team-tab-btn" onclick="switchTeamTab(${index}, event)" style="background: ${isSelected ? 'var(--elem-color)' : '#0b0b0f'}; border: 1px solid rgba(255,255,255,0.1); color: ${isSelected ? '#000000' : '#ffffff'}; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; transition: background 0.2s, color 0.2s;">
+                            ${team.name}
+                        </button>
+                    `;
+                });
+                html += `</div>`;
+            }
+
+            currentCharacter.teams.forEach((team, index) => {
+                html += `
+                    <div class="team-card-box" id="team-content-${index}" style="display: ${index === 0 ? 'block' : 'none'}; background: #0b0b0f; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 24px; margin-bottom: 20px;">
+                        <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: #fff; margin-top: 0; margin-bottom: 8px;">${team.name}</h3>
+                        <p style="color: #a0a0ab; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">${team.description}</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+                `;
+
+                team.members.forEach(member => {
+                    let memberLink = member.id ? `character.html?id=${member.id}` : '#';
+
+                    html += `
+                        <a href="${memberLink}" style="text-decoration: none; background: #121218; border: 1px solid ${member.isMain ? 'var(--elem-color)' : 'rgba(255,255,255,0.06)'}; border-radius: 6px; padding: 12px; display: flex; align-items: center; gap: 12px; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='var(--elem-color)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='${member.isMain ? 'var(--elem-color)' : 'rgba(255,255,255,0.06)'}'; this.style.transform='translateY(0)';">
+                            <div style="width: 45px; height: 45px; background-image: url('${member.image}'); background-size: cover; background-position: center; border-radius: 50%; border: 2px solid ${member.isMain ? 'var(--elem-color)' : 'rgba(255,255,255,0.2)'}; flex-shrink: 0;"></div>
+                            <div style="overflow: hidden;">
+                                <span style="display: block; font-size: 0.85rem; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${member.name}</span>
+                                <span style="display: block; font-size: 0.65rem; color: #888; text-transform: uppercase; letter-spacing: 1px;">${member.role}</span>
+                            </div>
+                        </a>
+                    `;
+                });
+
+                html += `</div></div>`;
+            });
+
+            teamsContainer.innerHTML = html;
+        }
+
+        function switchTeamTab(index, event) {
+            const allTeamBoxes = document.querySelectorAll('[id^="team-content-"]');
+            allTeamBoxes.forEach(box => box.style.display = 'none');
+
+            const targetBox = document.getElementById(`team-content-${index}`);
+            if (targetBox) targetBox.style.display = 'block';
+
+            const allBtns = event.currentTarget.parentElement.querySelectorAll('button');
+            allBtns.forEach(btn => {
+                btn.style.background = '#0b0b0f';
+                btn.style.color = '#ffffff';
+            });
+            event.currentTarget.style.background = 'var(--elem-color)';
+            event.currentTarget.style.color = '#000000';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archives & Systèmes — BASWEYY GUIDE</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+
+    <style>
+        .guide-page {
+            padding-bottom: 100px;
+            background: #08090b;
+            color: #f3f3f3;
+        }
+
+        .guide-hero {
+            position: relative;
+            padding: 80px 0 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(180deg, #0b0b0f 0%, #08090b 100%);
+        }
+
+        .guide-hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.8rem, 5vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1;
+            margin: 0 0 15px 0;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .guide-hero-desc {
+            max-width: 800px;
+            color: #a0a0ab;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* --- NAVIGATION PAR ONGLETS (DA DOREE STYLE CAPTURE) --- */
+        .tabs-navigation-wrapper {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+            background: #08090b;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tabs-container {
+            display: flex;
+            gap: 40px;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #888892;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 16px 0;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: #ffffff;
+        }
+
+        .tab-btn.active {
+            color: #e5c378;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #e5c378;
+            box-shadow: 0 0 10px rgba(229, 195, 120, 0.5);
+        }
+
+        /* --- CONTENU DE LA PAGE --- */
+        .guide-body-container {
+            padding-top: 40px;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .back-btn-wrapper {
+            margin-bottom: 25px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* BLOCS AVERTISSEMENT ET CARTES */
+        .warning-box {
+            background: rgba(229, 195, 120, 0.04);
+            border: 1px dashed rgba(229, 195, 120, 0.3);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: #e5c378;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .warning-box strong {
+            color: #ffffff;
+        }
+
+        .guide-card {
+            background: #0b0b0f;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .guide-card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #e5c378;
+            margin-top: 0;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .guide-card p, .guide-card ul, .guide-card ol {
+            color: #b0b0ba;
+            font-size: 0.95rem;
+            line-height: 1.85;
+            margin-bottom: 18px;
+        }
+
+        .guide-card ul, .guide-card ol {
+            padding-left: 20px;
+        }
+
+        .guide-card li {
+            margin-bottom: 10px;
+        }
+
+        .guide-card p strong, .guide-card li strong {
+            color: #ffffff;
+        }
+
+        .practical-tip {
+            font-style: italic;
+            color: #888892;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 15px;
+            margin-top: 20px;
+            margin-bottom: 0 !important;
+        }
+
+        .practical-tip strong {
+            color: #e5c378;
+            font-style: normal;
+        }
+
+        /* TABLEAUX */
+        .custom-table-wrapper {
+            overflow-x: auto;
+            margin: 25px 0;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .custom-table th {
+            background: rgba(229, 195, 120, 0.08);
+            color: #e5c378;
+            padding: 14px 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .custom-table td {
+            padding: 14px 18px;
+            color: #b0b0ba;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: #0d0d12;
+        }
+
+        .custom-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .custom-table td strong {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="guide-page">
+
+    <div id="site-header"></div>
+
+    <!-- HERO SECTION -->
+    <section class="guide-hero">
+        <div class="container" style="max-width: 950px; margin: 0 auto;">
+            <h1 class="guide-hero-title">ARCHIVES ET SYSTÈMES</h1>
+            <p class="guide-hero-desc">
+                Découvrez en détail le fonctionnement des tirages, des garanties (Pity) ainsi que l'économie globale et les devises des Quais d'Argent.
+            </p>
+        </div>
+    </section>
+
+    <!-- BARRE D'ONGLETS STICKY -->
+    <div class="tabs-navigation-wrapper">
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="switchTab('tab-invocations', this)">
+                <span>◆</span> INVOCATIONS ET PITY
+            </button>
+            <button class="tab-btn" onclick="switchTab('tab-ressources', this)">
+                <span>#</span> MONNAIES ET RESSOURCES
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="container guide-body-container">
+        
+        
+
+        <!-- ================= ONGLET 1 : INVOCATIONS ET PITY ================= -->
+        <div id="tab-invocations" class="tab-content active">
+            
+            <div class="warning-box">
+                <span>⚠️</span>
+                <div>
+                    <strong>Note :</strong> Toutes ces informations sont issues des versions bêta actuelles et sont donc susceptibles d'être modifiées d'ici la sortie officielle du jeu[cite: 9].
+                </div>
+            </div>
+
+            <!-- CARTE 1 -->
+            <article class="guide-card">
+                <h2 class="guide-card-title">Quel est le taux de chute 5 étoiles ?</h2>
+                <p>
+                    La probabilité de base de tirer un personnage 5 étoiles est de <strong>0,8 % par tirage</strong>[cite: 10]. Bien que ce chiffre semble strict, il est légèrement supérieur aux 0,6 % proposés par des jeux comme Genshin Impact ou Honkai: Star Rail[cite: 10]. En prenant en compte le système de pitiée, le taux consolidé effectif sur un cycle complet se situe à environ <strong>1,8 %</strong>[cite: 10].
+                </p>
+                <p>
+                    Les écrans à taux bêta répertorient également <strong>13 % de chances</strong> d'obtenir un personnage ou un motif 4 étoiles en 10 tirages, et <strong>93,2 % de chances</strong> d'obtenir un Motif 3 étoiles[cite: 10].
+                </p>
+                <p class="practical-tip">
+                    <strong>Le point pratique à retenir :</strong> La plupart de vos personnages 5 étoiles viendront de la pitiée plutôt que de la chance brute[cite: 10]. Construisez vos plans autour des garanties, pas du taux de base[cite: 10].
+                </p>
+            </article>
+
+            <!-- CARTE 2 -->
+            <article class="guide-card">
+                <h2 class="guide-card-title">Types de bannières : Invasion mentale</h2>
+                <p>
+                    Selon les rapports bêta, le système d'invocation s'appelle <strong>Invasion mentale</strong> et se divise en trois types de bannières[cite: 10] :
+                </p>
+                <ul>
+                    <li><strong>Balle constante :</strong> La bannière standard (permanente)[cite: 10].</li>
+                    <li><strong>Balle de contrôle :</strong> La bannière à caractères limités, où s'applique la garantie de 120 tirages[cite: 10].</li>
+                    <li><strong>Balle d'aperçu / Balle de puzzle :</strong> Les bannières d'armes, utilisées pour tirer des Motifs[cite: 10].</li>
+                </ul>
+            </article>
+
+            <!-- CARTE 3 -->
+            <article class="guide-card">
+                <h2 class="guide-card-title">Comment fonctionne la Pity ?</h2>
+                <p>
+                    Silver Palace garantit un personnage 5 étoiles <strong>dans les 80 tirages</strong> sur les bannières de personnages[cite: 11]. Si vous atteignez le pull 80 sans en voir un, ce tirage produit un 5 étoiles sans exception[cite: 11]. Cette dure pitiée se réinitialise chaque fois qu'une étoile 5 tombe[cite: 11].
+                </p>
+                <p>
+                    On ne sait toujours pas s'il existe une rampe de pitiée douce (soft pity), la zone où les taux augmentent fortement avant la pitiée dure[cite: 11]. Des jeux comparables la placent autour des tirages 65 à 75[cite: 11]. Si Silver Palace emboîte le pas, le coût moyen d'un 5 étoiles sera bien inférieur à 80 tirages[cite: 11].
+                </p>
+            </article>
+
+            <!-- CARTE 4 -->
+            <article class="guide-card">
+                <h2 class="guide-card-title">Silver Palace est-il un système 50/50 ?</h2>
+                <p>
+                    Des rapports bêta ultérieurs décrivent un système étroitement calqué sur <em>Arknights : Endfield</em>, et la réponse est plus nuancée que ne le suggéreraient les premières fuites[cite: 12] :
+                </p>
+                <ul>
+                    <li>Lorsqu'un 5 étoiles tombe sur une bannière limitée, un <strong>50/50 décide</strong> s'il s'agit du personnage principal ou d'un personnage hors bannière[cite: 12].</li>
+                    <li>Perdre le 50/50 fait <strong>pas</strong> actionner un drapeau « le prochain est garanti » de style Genshin : les rapports bêta indiquent que vous pouvez <strong>perdre plusieurs 50/50 d'affilée</strong>[cite: 12].</li>
+                    <li>Le filet de sécurité ultime est <strong>l'étincelle à 120 tirages</strong> : atteindre 120 tirages sur la bannière garantit le personnage en vedette, quoi qu'il arrive auparavant[cite: 12].</li>
+                </ul>
+                <p style="margin-top: 25px;"><strong>Deux règles de report importantes[cite: 12] :</strong></p>
+                <ul>
+                    <li>Le <strong>80-pull 5 étoiles (pitiée) se prolonge</strong> entre bannières du même type[cite: 12].</li>
+                    <li><strong>La garantie de 120 tirages ne se reporte pas :</strong> Le compteur d'étincelles est par bannière[cite: 12]. Si la bannière se termine avant d'atteindre 120, cette progression est perdue et la suivante démarre son étincelle à partir de zéro[cite: 12].</li>
+                </ul>
+            </article>
+
+            <!-- CARTE 5 -->
+            <article class="guide-card">
+                <h2 class="guide-card-title">Comment fonctionne la bannière Motifs (Armes) ?</h2>
+                <p>
+                    Les bannières d'armes ont <strong>pas de 50/50 du tout</strong>[cite: 12]. Les rapports bêta indiquent que le motif présenté est simplement <strong>garanti dans les 80 tirages</strong>[cite: 12], rendant le ciblage des armes plus prévisible que chez la plupart des concurrents[cite: 12].
+                </p>
+            </article>
+
+            <!-- CARTE 6 -->
+            <article class="guide-card">
+                <h2 class="guide-card-title">Devises et coûts d'extraction</h2>
+                <p>Les versions bêta font apparaître plusieurs devises liées au gacha[cite: 12] :</p>
+                <ul>
+                    <li><strong>Pierre philosophale :</strong> La monnaie premium utilisée pour extraire les caractères et les motifs[cite: 12].</li>
+                    <li><strong>Cristaux de réacteur :</strong> Une devise d'événement échangeable directement contre des caractères[cite: 12].</li>
+                    <li><strong>Fragments mentaux :</strong> Obtenu aux côtés de caractères 5 étoiles (la monnaie habituelle adjacente au dupe)[cite: 12].</li>
+                    <li><strong>Gravier mental :</strong> Obtenu auprès de Motifs 3 étoiles[cite: 12].</li>
+                </ul>
+            </article>
+        </div>
+
+
+        <!-- ================= ONGLET 2 : MONNAIES ET RESSOURCES ================= -->
+        <div id="tab-ressources" class="tab-content">
+            
+            <!-- CARTE 1 -->
+            <article class="guide-card">
+                <h2 class="guide-card-title">Les Quais d'Argent et les Devises</h2>
+                <p>
+                    Les <strong>Argent Docks</strong> sont la boutique centrale du Palais d'Argent, où presque toute la monnaie gagnée est dépensée[cite: 14]. Quatre onglets principaux structurent le rail gauche[cite: 14] :
+                </p>
+                <ol>
+                    <li><strong>Cognito Reload :</strong> Transforme les Cristaux de Réacteur en tirages (Révélations)[cite: 14].</li>
+                    <li><strong>Assemblage Cognito :</strong> Contient les échanges d'avancement et de fragments[cite: 14].</li>
+                    <li><strong>Boutique de Cadeaux (Gift Shop) :</strong> Vend des cadeaux de personnages pour des Onces[cite: 14].</li>
+                    <li><strong>Archives Épiphanie :</strong> Vend des titres Épiphanie et des encres Addendum[cite: 14].</li>
+                </ol>
+
+                <h3 style="color: #ffffff; font-size: 1.3rem; margin-top: 30px; margin-bottom: 15px;">Les 6 Devises en un coup d'œil</h3>
+                <div class="custom-table-wrapper">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>MONNAIE</th>
+                                <th>ONGLET / SECTION</th>
+                                <th>CE QU'IL ACHÈTE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Cristaux du réacteur</strong>[cite: 14]</td><td>Rechargement Cognito[cite: 14]</td><td>Révélations (Shots) au prix fort[cite: 14]</td></tr>
+                            <tr><td><strong>Éclats d'esprit</strong>[cite: 14]</td><td>Assemblage Cognito, Échange de Fragments[cite: 14]</td><td>Plans et mystères des personnages[cite: 14]</td></tr>
+                            <tr><td><strong>Grains de l'Esprit</strong>[cite: 14]</td><td>Assemblage Cognito, Échange de grains d'esprit[cite: 14]</td><td>Livres d'amélioration, concentrés, favoris, tirs[cite: 14]</td></tr>
+                            <tr><td><strong>Once</strong>[cite: 14]</td><td>Boutique de souvenirs (Gift Shop)[cite: 14]</td><td>Dons de personnage[cite: 14]</td></tr>
+                            <tr><td><strong>Coupures de destin</strong>[cite: 14]</td><td>Archives de l'Épiphanie[cite: 14]</td><td>Tout titre d'Épiphanie listé[cite: 14]</td></tr>
+                            <tr><td><strong>Matériaux excédentaires</strong>[cite: 14]</td><td>Archives de l'Épiphanie, section Papeterie[cite: 14]</td><td>Encre personnalisée et encre de croquis[cite: 14]</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+
+            <!-- CARTE 2 -->
+            <article class="guide-card">
+                <h2 class="guide-card-title">Cognito Reload : Acquisition des Révélations</h2>
+                <p>
+                    Les Cristaux de Réacteur ne se dépensent pas directement sur les bannières : ils se convertissent ici à un taux fixe de <strong>360 cristaux de réacteur par tir</strong>[cite: 15].
+                </p>
+                <p>
+                    Attention : les quatre types de Tirs sont des monnaies distinctes et non interchangeables[cite: 15]. La pitiée ne se partage pas entre eux[cite: 15] :
+                </p>
+
+                <div class="custom-table-wrapper">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>TYPE DE TIR</th>
+                                <th>BANNIÈRE CIBLÉE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Coup de jugement</strong>[cite: 15]</td><td>Bannières de personnages limitées[cite: 15]</td></tr>
+                            <tr><td><strong>Tir de déduction</strong>[cite: 15]</td><td>Bannières Limited Motive[cite: 15]</td></tr>
+                            <tr><td><strong>Tir standard</strong>[cite: 15]</td><td>La bannière standard des personnages[cite: 15]</td></tr>
+                            <tr><td><strong>Bullet of Insight (Insight Shot)</strong>[cite: 15]</td><td>La bannière standard Motive[cite: 15]</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 20px;">
+                    À 360 cristaux chacun, un pack de 10 coûte 3 600 cristaux[cite: 15]. Le plafond de pitiée pour une bannière de personnage limité est de 100 Révélations (36 000 cristaux), tandis que celui du Motif est de 80 Révélations (28 800 cristaux)[cite: 15].
+                </p>
+            </article>
+
+            <!-- CARTE 3 -->
+            <article class="guide-card">
+                <h2 class="guide-card-title">Assemblage Cognito & Boutique de Souvenirs</h2>
+                <p>
+                    <strong>L'Échange de Fragments (Shard Exchange) :</strong> C'est le meilleur taux de la boutique[cite: 15]. <strong>12 Éclats d'Esprit</strong> permettent d'acheter n'importe quel Tir sans limite de stock, rendant cette monnaie extrêmement précieuse[cite: 15].
+                </p>
+                <p>
+                    <strong>Boutique de Souvenirs :</strong> L'onglet le plus direct[cite: 15]. Chaque article coûte <strong>10 000 onces</strong> avec un stock hebdomadaire de <strong>50 onces</strong>, à cibler selon les cadeaux désirés par vos personnages[cite: 15].
+                </p>
+                <p>
+                    <strong>Archives Épiphanie :</strong> Tout titre affiché (œuvres littéraires, lecteurs débutants) coûte <strong>1 000 Coupures de destin</strong>, transformant la collection en un objectif de gestion monétaire précis[cite: 15].
+                </p>
+            </article>
+
+        </div>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-main">
+            <div class="container footer-container">
+                <div class="footer-brand">
+                    <a href="../index.html" class="footer-logo">
+                        <span class="footer-logo-main">BASWEYY</span>
+                        <span class="footer-logo-sub">GUIDE</span>
+                    </a>
+                    <p class="footer-description">L'archive communautaire dédiée à Silver Palace.</p>
+                </div>
+                <div class="footer-column">
+                    <span class="footer-column-title">NAVIGATION</span>
+                    <a href="../index.html">Accueil</a>
+                    <a href="guides.html">Guides</a>
+                    <a href="characters.html">Personnages</a>
+                    <a href="teams.html">Teams</a>
+                    <a href="tier-list.html">Tier List</a>
+                    <a href="news.html">Actualités</a>
+                </div>
+                <div class="footer-column">
+                    <span class="footer-column-title">COMMUNAUTÉ</span>
+                    <a href="#">Discord</a>
+                    <a href="#">Twitch</a>
+                    <a href="#">TikTok</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <span>© 2026 BASWEYY GUIDE</span>
+                <span>Site communautaire non officiel</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/components/navbar.js"></script>
+
+    <!-- SCRIPT COMMUTATION D'ONGLETS -->
+    <script>
+        function switchTab(tabId, element) {
+            // Désactiver tous les contenus
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            // Désactiver tous les boutons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Activer le contenu et le bouton cliqué
+            document.getElementById(tabId).classList.add('active');
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>

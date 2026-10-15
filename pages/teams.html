@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compositions d'Équipe — BASWEYY GUIDE</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+
+    <style>
+        /* =========================================
+           STYLE SPÉCIFIQUE DES TEAMS (HARMONISÉ)
+           ========================================= */
+
+        .teams-hero {
+            position: relative;
+            padding: 100px 0 60px;
+            border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+            background: var(--bg-primary, #08090b);
+        }
+
+        .teams-hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 500;
+            line-height: 0.9;
+            margin: 0;
+            color: var(--text-title, #ffffff);
+        }
+
+        .teams-hero-title span {
+            display: block;
+            color: var(--silver, #a9b0b8);
+        }
+
+        .teams-hero-description {
+            max-width: 600px;
+            margin-top: 20px;
+            color: var(--text-secondary, #888892);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* SECTION FILTRES & CHERCHEUR */
+        .teams-tools {
+            padding: 20px 0;
+            background: rgba(8, 9, 11, 0.9);
+            border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+        }
+
+        .teams-tools-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .teams-search {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .teams-search input {
+            width: 100%;
+            height: 44px;
+            padding: 0 16px 0 42px;
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));
+            background: var(--bg-card, #0b0b0f);
+            color: var(--text-primary, #ffffff);
+            font-size: 0.8rem;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .teams-search input:focus {
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .teams-search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary, #888892);
+        }
+
+        /* GRILLE DES ÉQUIPES */
+        .teams-list-section {
+            padding: 60px 0 100px;
+        }
+
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        /* CARTE ÉQUIPE - SANS BORDURE DORÉE AU SURVOL */
+        .team-card {
+            background: var(--bg-card, #0b0b0f);
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+            border-radius: 10px;
+            padding: 28px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .team-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            gap: 15px;
+        }
+
+        .team-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .team-badge-author {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-secondary, #a0a0ab);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .team-description {
+            color: var(--text-secondary, #a0a0ab);
+            font-size: 0.88rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        /* MEMBRES D'ÉQUIPE */
+        .team-members-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .team-member-card {
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .team-member-card:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .team-member-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 8px;
+            background-color: #121218;
+        }
+
+        .team-member-name {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 3px;
+        }
+
+        .team-member-role {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--text-secondary, #777780);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media(max-width: 950px) {
+            .teams-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 550px) {
+            .team-members-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="site-header"></div>
+
+    <!-- HERO -->
+    <section class="teams-hero">
+        <div class="container">
+            <h1 class="teams-hero-title">
+                Compositions
+                <span>d'Équipe</span>
+            </h1>
+            <p class="teams-hero-description">
+                Retrouvez les meilleures compositions d'équipe synchronisées avec les dossiers des personnages de Silver Palace.
+            </p>
+        </div>
+    </section>
+
+    <!-- BARRE DE RECHERCHE -->
+    <section class="teams-tools">
+        <div class="container">
+            <div class="teams-tools-inner">
+                <div class="teams-search">
+                    <span class="teams-search-icon">⌕</span>
+                    <input type="text" id="team-search-input" placeholder="Rechercher par nom d'équipe ou personnage..." autocomplete="off">
+                </div>
+                <div style="color: var(--text-secondary, #888892); font-size: 0.75rem; font-weight: 700; letter-spacing: 1px;">
+                    <span id="teams-count">0</span> COMPOSITIONS DISPONIBLES
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LISTE DES ÉQUIPES -->
+    <section class="teams-list-section">
+        <div class="container">
+            <div class="teams-grid" id="teams-container">
+                <!-- Rempli dynamiquement en JS depuis characters.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-main">
+            <div class="container footer-container">
+                <div class="footer-brand">
+                    <a href="../index.html" class="footer-logo">
+                        <span class="footer-logo-main">BASWEYY</span>
+                        <span class="footer-logo-sub">GUIDE</span>
+                    </a>
+                    <p class="footer-description">L'archive communautaire dédiée à Silver Palace.</p>
+                </div>
+                <div class="footer-column">
+                    <span class="footer-column-title">NAVIGATION</span>
+                    <a href="../index.html">Accueil</a>
+                    <a href="guides.html">Guides</a>
+                    <a href="characters.html">Personnages</a>
+                    <a href="teams.html">Teams</a>
+                    <a href="tier-list.html">Tier List</a>
+                    <a href="news.html">Actualités</a>
+                </div>
+                <div class="footer-column">
+                    <span class="footer-column-title">COMMUNAUTÉ</span>
+                    <a href="#">Discord</a>
+                    <a href="#">Twitch</a>
+                    <a href="#">TikTok</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <span>© 2026 BASWEYY GUIDE</span>
+                <span>Site communautaire non officiel</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/components/navbar.js"></script>
+    <script src="../js/data/characters.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const container = document.getElementById("teams-container");
+            const countSpan = document.getElementById("teams-count");
+            const searchInput = document.getElementById("team-search-input");
+
+            if (!container || typeof charactersData === "undefined") return;
+
+            // Extraire et dédoublonner toutes les équipes de characters.js
+            let allTeams = [];
+            const seenTeamNames = new Set();
+
+            charactersData.forEach(char => {
+                if (char.teams && Array.isArray(char.teams)) {
+                    char.teams.forEach(team => {
+                        if (!seenTeamNames.has(team.name)) {
+                            seenTeamNames.add(team.name);
+                            allTeams.push({
+                                ...team,
+                                mainCharacterName: char.name
+                            });
+                        }
+                    });
+                }
+            });
+
+            function renderTeams(filterText = "") {
+                container.innerHTML = "";
+                const searchLower = filterText.toLowerCase();
+
+                const filteredTeams = allTeams.filter(team => {
+                    const matchName = team.name.toLowerCase().includes(searchLower);
+                    const matchDesc = team.description ? team.description.toLowerCase().includes(searchLower) : false;
+                    const matchMember = team.members ? team.members.some(m => m.name.toLowerCase().includes(searchLower)) : false;
+                    return matchName || matchDesc || matchMember;
+                });
+
+                if (countSpan) countSpan.textContent = filteredTeams.length;
+
+                if (filteredTeams.length === 0) {
+                    container.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-secondary, #888892);">
+                            <h3>Aucune composition d'équipe trouvée</h3>
+                            <p style="font-size: 0.8rem;">Essayez un autre mot-clé dans la barre de recherche.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                filteredTeams.forEach(team => {
+                    const article = document.createElement("article");
+                    article.className = "team-card";
+
+                    let membersHtml = "";
+                    if (team.members && Array.isArray(team.members)) {
+                        team.members.forEach(member => {
+                            const link = member.id ? `character.html?id=${member.id}` : '#';
+                            membersHtml += `
+                                <a href="${link}" class="team-member-card">
+                                    <div class="team-member-avatar" style="background-image: url('../${member.image}');"></div>
+                                    <span class="team-member-name">${member.name}</span>
+                                    <span class="team-member-role">${member.role}</span>
+                                </a>
+                            `;
+                        });
+                    }
+
+                    article.innerHTML = `
+                        <div class="team-card-header">
+                            <h2 class="team-title">${team.name}</h2>
+                            <span class="team-badge-author">Focus : ${team.mainCharacterName}</span>
+                        </div>
+                        <p class="team-description">${team.description || "Aucune description fournie."}</p>
+                        <div class="team-members-grid">
+                            ${membersHtml}
+                        </div>
+                    `;
+
+                    container.appendChild(article);
+                });
+            }
+
+            // Rendu initial
+            renderTeams();
+
+            // Filtrage dynamique lors de la recherche
+            if (searchInput) {
+                searchInput.addEventListener("input", (e) => {
+                    renderTeams(e.target.value);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

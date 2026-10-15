@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Builder — BASWEYY GUIDE</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+
+    <style>
+        .builder-hero {
+            position: relative;
+            padding: 90px 0 50px;
+            border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+            background: var(--bg-primary, #08090b);
+        }
+
+        .builder-hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 500;
+            line-height: 0.9;
+            margin: 0;
+            color: var(--text-title, #ffffff);
+            text-transform: uppercase;
+        }
+
+        .builder-hero-title span {
+            display: block;
+            color: var(--silver, #a9b0b8);
+        }
+
+        .builder-hero-description {
+            max-width: 600px;
+            margin-top: 20px;
+            color: var(--text-secondary, #888892);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .builder-layout {
+            padding: 50px 0 50px;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .builder-canvas-card {
+            background: var(--bg-card, #0b0b0f);
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .canvas-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .team-title-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            outline: none;
+            width: 100%;
+            max-width: 350px;
+            transition: border-color 0.2s;
+        }
+        .team-title-input:focus {
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .builder-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: #121218;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .action-btn:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .action-btn.primary {
+            background: rgba(184, 155, 98, 0.15);
+            border-color: rgba(184, 155, 98, 0.4);
+            color: #fff;
+        }
+        .action-btn.primary:hover {
+            background: rgba(184, 155, 98, 0.25);
+            border-color: rgba(184, 155, 98, 0.7);
+        }
+
+        /* APERÇU GLOBAL DE LA TEAM */
+        .team-preview-overview {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+        }
+        .team-preview-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-secondary, #888892);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .team-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .team-preview-slot {
+            background: #121218;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .team-preview-slot:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        .team-preview-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            margin: 0 auto 6px;
+            background-color: #222;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* TABS PERSONNAGES */
+        .char-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 12px;
+            overflow-x: auto;
+        }
+
+        .char-tab {
+            background: #121218;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .char-tab.active {
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .char-tab-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            background-color: #222;
+            display: inline-block;
+        }
+
+        #empty-slot-state {
+            text-align: center;
+            padding: 50px 20px;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .build-section {
+            margin-bottom: 25px;
+        }
+
+        .build-section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #ff3344;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .gear-slots-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .gear-slot {
+            width: 75px;
+            height: 75px;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+        .gear-slot:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .gear-slot.filled {
+            border-style: solid;
+            border-color: rgba(255, 255, 255, 0.3);
+            background: #121218;
+        }
+
+        .gear-slot-icon {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .gear-slot-label {
+            font-size: 0.55rem;
+            color: #777;
+            text-transform: uppercase;
+            margin-top: 4px;
+            text-align: center;
+            padding: 0 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        .gear-slot-img {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.85;
+        }
+        .gear-slot-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.85) 100%);
+        }
+        .gear-slot-name-overlay {
+            position: absolute;
+            bottom: 4px;
+            left: 2px;
+            right: 2px;
+            font-size: 0.55rem;
+            color: #fff;
+            text-align: center;
+            z-index: 2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .analysis-card {
+            background: var(--bg-card, #0b0b0f);
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+            border-radius: 10px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .analysis-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-secondary, #888892);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .analysis-item { margin-bottom: 18px; }
+        .analysis-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary, #666670);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .analysis-value { font-size: 0.95rem; font-weight: 600; color: #ffffff; }
+
+        /* SECTION "MES TEAMS" */
+        .my-teams-section {
+            padding: 40px 0 100px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .my-teams-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .my-teams-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .my-teams-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .saved-team-card {
+            background: var(--bg-card, #0b0b0f);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .saved-team-card:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+        .saved-team-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .saved-team-members {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .saved-team-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            background-color: #222;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .saved-team-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .modal-backdrop.open { display: flex; }
+
+        .modal-box {
+            background: var(--bg-card, #0b0b0f);
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.15));
+            border-radius: 12px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: #fff; margin: 0; text-transform: uppercase; }
+        .modal-close { background: none; border: none; color: #888; font-size: 1.5rem; cursor: pointer; }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 14px;
+        }
+
+        .select-item-card {
+            background: #121218;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .select-item-card:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        @media(max-width: 900px) {
+            .builder-layout { grid-template-columns: 1fr; }
+            .team-preview-grid { grid-template-columns: repeat(2, 1fr); }
+            .my-teams-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="site-header"></div>
+
+    <section class="builder-hero">
+        <div class="container">
+            <h1 class="builder-hero-title">
+                Team
+                <span>Builder</span>
+            </h1>
+            <p class="builder-hero-description">
+                Configurez librement le build de chaque personnage, sauvegardez vos compositions et retrouvez-les à tout moment.
+            </p>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="builder-layout">
+            <div class="builder-canvas-card">
+                <div class="canvas-header">
+                    <input type="text" id="team-title" class="team-title-input" value="Mon Équipe Personnalisée" placeholder="Nom de l'équipe...">
+                    <div class="builder-actions">
+                        <button class="action-btn primary" onclick="saveTeamToLocalStorage()"> Sauvegarder</button>
+                        <button class="action-btn" onclick="clearTeam()">Réinitialiser</button>
+                        <button class="action-btn" onclick="shareTeam()">Partager</button>
+                    </div>
+                </div>
+
+                <!-- APERÇU GLOBAL DE LA TEAM -->
+                <div class="team-preview-overview">
+                    <div class="team-preview-title">// APERÇU DE LA TEAM</div>
+                    <div class="team-preview-grid" id="team-preview-grid"></div>
+                </div>
+
+                <!-- TABS DES 4 SLOTS DE PERSONNAGES -->
+                <div class="char-tabs" id="char-tabs"></div>
+
+                <!-- ÉTATS DU PANNEAU DE CONFIGURATION -->
+                <div id="empty-slot-state">
+                    <p style="color: #888; margin-bottom: 15px; font-size: 0.9rem;">Aucun personnage sélectionné pour ce slot.</p>
+                    <button class="action-btn" onclick="openCharacterPickerForActiveSlot()">+ Choisir un personnage</button>
+                </div>
+
+                <div id="char-build-panel" style="display: none;">
+                    <!-- // MOTIF -->
+                    <div class="build-section">
+                        <div class="build-section-title">// MOTIF</div>
+                        <div class="gear-slots-row">
+                            <div class="gear-slot" id="slot-motif" onclick="openItemPicker('motif')">
+                                <span class="gear-slot-icon">+</span>
+                                <span class="gear-slot-label">Motif</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- // OUTIL -->
+                    <div class="build-section">
+                        <div class="build-section-title">// OUTIL</div>
+                        <div class="gear-slots-row">
+                            <div class="gear-slot" id="slot-outil" onclick="openItemPicker('outil')">
+                                <span class="gear-slot-icon">+</span>
+                                <span class="gear-slot-label">Outil</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- // ÉPIPHANIE -->
+                    <div class="build-section">
+                        <div class="build-section-title">// ÉPIPHANIE</div>
+                        <div class="gear-slots-row">
+                            <div class="gear-slot" id="slot-epiphanie" onclick="openItemPicker('epiphanie')">
+                                <span class="gear-slot-icon">+</span>
+                                <span class="gear-slot-label">Épiphanie</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- // CATALYSEURS -->
+                    <div class="build-section">
+                        <div class="build-section-title">// CATALYSEURS</div>
+                        <div class="gear-slots-row">
+                            <div class="gear-slot" id="slot-catalyseur-0" onclick="openItemPicker('catalyseur', 0)"><span class="gear-slot-icon">+</span><span class="gear-slot-label">Catalyseur 1</span></div>
+                            <div class="gear-slot" id="slot-catalyseur-1" onclick="openItemPicker('catalyseur', 1)"><span class="gear-slot-icon">+</span><span class="gear-slot-label">Catalyseur 2</span></div>
+                            <div class="gear-slot" id="slot-catalyseur-2" onclick="openItemPicker('catalyseur', 2)"><span class="gear-slot-icon">+</span><span class="gear-slot-label">Catalyseur 3</span></div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px; text-align: right;">
+                        <button class="action-btn" style="border-color: #ff3344; color: #ff3344;" onclick="removeCharacterFromActiveSlot()">Retirer ce personnage</button>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="analysis-card">
+                <div class="analysis-title">◆ Résumé de la Composition</div>
+                <div class="analysis-item"><span class="analysis-label">Personnage Actif</span><span class="analysis-value" id="active-char-name">Aucun</span></div>
+                <div class="analysis-item"><span class="analysis-label">Membres Équipe</span><span class="analysis-value" id="team-members-list">-</span></div>
+                <div class="analysis-item"><span class="analysis-label">État du Build</span><span class="analysis-value" id="build-status" style="font-size: 0.85rem;">En attente de configuration...</span></div>
+            </aside>
+        </div>
+
+        <!-- SECTION MES TEAMS -->
+        <section class="my-teams-section">
+            <div class="my-teams-header">
+                <h2 class="my-teams-title">Mes Teams Sauvegardées</h2>
+            </div>
+            <div class="my-teams-grid" id="saved-teams-grid"></div>
+        </section>
+    </main>
+
+    <!-- MODALE SELECTION -->
+    <div class="modal-backdrop" id="picker-modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Sélectionner un Élément</h3>
+                <button class="modal-close" onclick="closePicker()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-items-grid"></div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-main">
+            <div class="container footer-container">
+                <div class="footer-brand">
+                    <a href="../index.html" class="footer-logo">
+                        <span class="footer-logo-main">BASWEYY</span>
+                        <span class="footer-logo-sub">GUIDE</span>
+                    </a>
+                    <p class="footer-description">L'archive communautaire dédiée à Silver Palace.</p>
+                </div>
+                <div class="footer-column">
+                    <span class="footer-column-title">NAVIGATION</span>
+                    <a href="../index.html">Accueil</a>
+                    <a href="guides.html">Guides</a>
+                    <a href="characters.html">Personnages</a>
+                    <a href="teams.html">Teams</a>
+                    <a href="team-builder.html">Team Builder</a>
+                    <a href="tier-list.html">Tier List</a>
+                    <a href="news.html">Actualités</a>
+                </div>
+                <div class="footer-column">
+                    <span class="footer-column-title">COMMUNAUTÉ</span>
+                    <a href="#">Discord</a>
+                    <a href="#">Twitch</a>
+                    <a href="#">TikTok</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <span>© 2026 BASWEYY GUIDE</span>
+                <span>Site communautaire non officiel</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/components/navbar.js"></script>
+    <script src="../js/data/characters.js"></script>
+    <script>
+        let currentActiveCharIndex = 0;
+        let teamData = [
+            { char: null, motif: null, outil: null, epiphanie: null, catalyseurs: [null, null, null] },
+            { char: null, motif: null, outil: null, epiphanie: null, catalyseurs: [null, null, null] },
+            { char: null, motif: null, outil: null, epiphanie: null, catalyseurs: [null, null, null] },
+            { char: null, motif: null, outil: null, epiphanie: null, catalyseurs: [null, null, null] }
+        ];
+
+        let pickerCategory = null;
+        let pickerSubIndex = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            renderTabs();
+            renderTeamPreview();
+            updateUIState();
+            renderSavedTeams();
+        });
+
+        function switchCharTab(idx) {
+            currentActiveCharIndex = idx;
+            renderTabs();
+            updateUIState();
+        }
+
+        function renderTabs() {
+            const container = document.getElementById("char-tabs");
+            if (!container) return;
+            container.innerHTML = "";
+
+            teamData.forEach((slot, idx) => {
+                const btn = document.createElement("button");
+                btn.className = `char-tab ${idx === currentActiveCharIndex ? 'active' : ''}`;
+                
+                if (slot.char) {
+                    btn.innerHTML = `
+                        <span class="char-tab-avatar" style="background-image: url('../${slot.char.image}');"></span>
+                        <span>${slot.char.name}</span>
+                    `;
+                } else {
+                    btn.innerHTML = `<span>${idx + 1}. Slot Vide</span>`;
+                }
+
+                btn.onclick = () => switchCharTab(idx);
+                container.appendChild(btn);
+            });
+        }
+
+        function renderTeamPreview() {
+            const container = document.getElementById("team-preview-grid");
+            if (!container) return;
+            container.innerHTML = "";
+
+            teamData.forEach((slot, idx) => {
+                const div = document.createElement("div");
+                div.className = "team-preview-slot";
+                div.onclick = () => switchCharTab(idx);
+
+                if (slot.char) {
+                    div.innerHTML = `
+                        <div class="team-preview-avatar" style="background-image: url('../${slot.char.image}');"></div>
+                        <span style="font-size: 0.75rem; color: #fff; font-weight: 700; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${slot.char.name}</span>
+                    `;
+                } else {
+                    div.innerHTML = `
+                        <div class="team-preview-avatar" style="display: flex; align-items: center; justify-content: center; color: #555; font-size: 1.2rem;">+</div>
+                        <span style="font-size: 0.65rem; color: #777;">Slot ${idx + 1}</span>
+                    `;
+                }
+                container.appendChild(div);
+            });
+        }
+
+        function updateUIState() {
+            const activeData = teamData[currentActiveCharIndex];
+            const emptyState = document.getElementById("empty-slot-state");
+            const buildPanel = document.getElementById("char-build-panel");
+
+            if (!activeData.char) {
+                emptyState.style.display = "block";
+                buildPanel.style.display = "none";
+            } else {
+                emptyState.style.display = "none";
+                buildPanel.style.display = "block";
+                renderBuildPanel();
+            }
+            renderTeamPreview();
+            updateSummary();
+        }
+
+        function openCharacterPickerForActiveSlot() {
+            pickerCategory = 'character';
+            openPickerModal("Sélectionner le Personnage");
+        }
+
+        function removeCharacterFromActiveSlot() {
+            teamData[currentActiveCharIndex] = {
+                char: null, motif: null, outil: null, epiphanie: null, catalyseurs: [null, null, null]
+            };
+            renderTabs();
+            updateUIState();
+        }
+
+        function openItemPicker(category, subIdx = null) {
+            const activeSlot = teamData[currentActiveCharIndex];
+            if (!activeSlot.char) return;
+
+            if (category === 'catalyseur') {
+                alert("Fonctionnalité Catalyseur : Pas encore dispo !");
+                return;
+            }
+
+            pickerCategory = category;
+            pickerSubIndex = subIdx;
+            openPickerModal(`Sélectionner : ${category.toUpperCase()}`);
+        }
+
+        function openPickerModal(titleText) {
+            document.getElementById("modal-title").textContent = titleText;
+            document.getElementById("picker-modal").classList.add("open");
+            renderModalItems();
+        }
+
+        function closePicker() {
+            document.getElementById("picker-modal").classList.remove("open");
+        }
+
+        function renderModalItems() {
+    const grid = document.getElementById("modal-items-grid");
+    if (!grid) return;
+    grid.innerHTML = "";
+
+    const activeChar = teamData[currentActiveCharIndex].char;
+
+    if (pickerCategory === 'character') {
+        charactersData.forEach(c => {
+            const isSelected = teamData.some(slot => slot.char && slot.char.id === c.id);
+            if (isSelected) return;
+
+            const card = document.createElement("div");
+            card.className = "select-item-card";
+            card.onclick = () => {
+                teamData[currentActiveCharIndex] = {
+                    char: c, motif: null, outil: null, epiphanie: null, catalyseurs: [null, null, null]
+                };
+                closePicker();
+                renderTabs();
+                updateUIState();
+            };
+            card.innerHTML = `
+                <div style="width: 50px; height: 50px; border-radius: 50%; background-image: url('../${c.image}'); background-size: cover; margin: 0 auto 6px;"></div>
+                <span style="color: #fff; font-size: 0.8rem; font-weight: 700;">${c.name}</span>
+            `;
+            grid.appendChild(card);
+        });
+    } else {
+        let itemsList = [];
+        charactersData.forEach(c => {
+            if (c.equipment) {
+                if (pickerCategory === 'motif' && c.equipment.motif) {
+                    itemsList.push(c.equipment.motif);
+                }
+                if (pickerCategory === 'epiphanie' && c.equipment.weapon) {
+                    itemsList.push(c.equipment.weapon);
+                }
+                if (pickerCategory === 'outil' && c.equipment.echoSets) {
+                    itemsList.push(...c.equipment.echoSets);
+                }
+            }
+        });
+
+        // Éviter les doublons d'éléments
+        itemsList = itemsList.filter((item, index, self) => 
+            index === self.findIndex(t => t.name === item.name)
+        );
+
+        if (itemsList.length === 0) {
+            grid.innerHTML = `<p style="grid-column: 1/-1; color: #888; text-align: center;">Aucun équipement disponible.</p>`;
+            return;
+        }
+
+        itemsList.forEach(item => {
+            const card = document.createElement("div");
+            card.className = "select-item-card";
+            card.onclick = () => {
+                const activeSlot = teamData[currentActiveCharIndex];
+                if (pickerCategory === 'motif') activeSlot.motif = item;
+                if (pickerCategory === 'epiphanie') activeSlot.epiphanie = item;
+                if (pickerCategory === 'outil') activeSlot.outil = item;
+
+                closePicker();
+                renderBuildPanel();
+            };
+            
+            // Nettoyage automatique : supprime le texte "(Recommandé)" ou "(Recommandee)" s'il existe dans le nom
+            const cleanName = item.name.replace(/\(Recommandé[e]?\)/gi, "").trim();
+
+            let itemImgHtml = item.image ? `<div style="width: 45px; height: 55px; background-image: url('../${item.image}'); background-size: cover; background-position: center; margin: 0 auto 8px; border-radius: 4px;"></div>` : '';
+            
+            card.innerHTML = `
+                ${itemImgHtml}
+                <span style="color: #fff; font-size: 0.8rem; font-weight: 600; display: block; line-height: 1.2;">${cleanName}</span>
+            `;
+            grid.appendChild(card);
+        });
+    }
+}
+
+        function renderBuildPanel() {
+            const activeData = teamData[currentActiveCharIndex];
+            
+            updateSlotUI("slot-motif", activeData.motif, "Motif");
+            updateSlotUI("slot-outil", activeData.outil, "Outil");
+            updateSlotUI("slot-epiphanie", activeData.epiphanie, "Épiphanie");
+            activeData.catalyseurs.forEach((c, i) => updateSlotUI(`slot-catalyseur-${i}`, c, `Catalyseur ${i + 1}`));
+        }
+
+        function updateSlotUI(slotId, item, defaultLabel) {
+            const slotElem = document.getElementById(slotId);
+            if (!slotElem) return;
+
+            if (item) {
+                slotElem.className = "gear-slot filled";
+                let imgStyle = item.image ? `background-image: url('../${item.image}');` : '';
+                slotElem.innerHTML = `
+                    <div class="gear-slot-img" style="${imgStyle}"></div>
+                    <div class="gear-slot-overlay"></div>
+                    <span class="gear-slot-name-overlay" title="${item.name}">${item.name}</span>
+                `;
+            } else {
+                slotElem.className = "gear-slot";
+                slotElem.innerHTML = `<span class="gear-slot-icon">+</span><span class="gear-slot-label">${defaultLabel}</span>`;
+            }
+        }
+
+        function updateSummary() {
+            const activeData = teamData[currentActiveCharIndex];
+            document.getElementById("active-char-name").textContent = activeData.char ? activeData.char.name : "Aucun";
+
+            const memberNames = teamData.map(t => t.char ? t.char.name : "Vide").join(" • ");
+            document.getElementById("team-members-list").textContent = memberNames;
+        }
+
+        function clearTeam() {
+            teamData = [
+                { char: null, motif: null, outil: null, epiphanie: null, catalyseurs: [null, null, null] },
+                { char: null, motif: null, outil: null, epiphanie: null, catalyseurs: [null, null, null] },
+                { char: null, motif: null, outil: null, epiphanie: null, catalyseurs: [null, null, null] },
+                { char: null, motif: null, outil: null, epiphanie: null, catalyseurs: [null, null, null] }
+            ];
+            document.getElementById("team-title").value = "Mon Équipe Personnalisée";
+            renderTabs();
+            updateUIState();
+        }
+
+        function shareTeam() {
+            const teamDataParam = teamData.map(slot => slot.char ? slot.char.id : "").join(",");
+            const title = encodeURIComponent(document.getElementById("team-title").value);
+            const shareUrl = `${window.location.origin}${window.location.pathname}?title=${title}&team=${teamDataParam}`;
+
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                alert("Lien de partage copié dans le presse-papier !");
+            });
+        }
+
+        function saveTeamToLocalStorage() {
+            const title = document.getElementById("team-title").value || "Équipe sans nom";
+            const savedTeams = JSON.parse(localStorage.getItem("basweyy_saved_teams") || "[]");
+
+            const newTeamEntry = {
+                id: Date.now(),
+                title: title,
+                data: teamData
+            };
+
+            savedTeams.push(newTeamEntry);
+            localStorage.setItem("basweyy_saved_teams", JSON.stringify(savedTeams));
+            renderSavedTeams();
+            alert("Équipe sauvegardée avec succès !");
+        }
+
+        function renderSavedTeams() {
+            const grid = document.getElementById("saved-teams-grid");
+            if (!grid) return;
+
+            const savedTeams = JSON.parse(localStorage.getItem("basweyy_saved_teams") || "[]");
+            grid.innerHTML = "";
+
+            if (savedTeams.length === 0) {
+                grid.innerHTML = `<p style="grid-column: 1/-1; color: var(--text-secondary); font-size: 0.85rem;">Aucune équipe sauvegardée pour le moment.</p>`;
+                return;
+            }
+
+            savedTeams.forEach(team => {
+                const card = document.createElement("div");
+                card.className = "saved-team-card";
+
+                let avatarsHtml = "";
+                team.data.forEach(slot => {
+                    if (slot.char) {
+                        avatarsHtml += `<div class="saved-team-avatar" style="background-image: url('../${slot.char.image}');"></div>`;
+                    } else {
+                        avatarsHtml += `<div class="saved-team-avatar" style="display:flex; align-items:center; justify-content:center; color:#555; font-size:0.7rem;">-</div>`;
+                    }
+                });
+
+                card.innerHTML = `
+                    <div class="saved-team-name">${team.title}</div>
+                    <div class="saved-team-members">${avatarsHtml}</div>
+                    <div class="saved-team-actions">
+                        <button class="action-btn" style="flex:1;" onclick="loadSavedTeam(${team.id})">Charger</button>
+                        <button class="action-btn" style="border-color: #ff3344; color: #ff3344;" onclick="deleteSavedTeam(${team.id})">Supprimer</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function loadSavedTeam(teamId) {
+            const savedTeams = JSON.parse(localStorage.getItem("basweyy_saved_teams") || "[]");
+            const target = savedTeams.find(t => t.id === teamId);
+            if (target) {
+                teamData = target.data;
+                document.getElementById("team-title").value = target.title;
+                renderTabs();
+                updateUIState();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function deleteSavedTeam(teamId) {
+            let savedTeams = JSON.parse(localStorage.getItem("basweyy_saved_teams") || "[]");
+            savedTeams = savedTeams.filter(t => t.id !== teamId);
+            localStorage.setItem("basweyy_saved_teams", JSON.stringify(savedTeams));
+            renderSavedTeams();
+        }
+    </script>
+</body>
+</html>

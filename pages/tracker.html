@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tracker d'invocations pour vos bannières sur BASWEYY GUIDE.">
+    <title>Tracker d'Invocations — BASWEYY GUIDE</title>
+
+    <!-- CSS GLOBAUX DE TON SITE -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+
+    <style>
+        .tracker-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .tracker-layout { grid-template-columns: 1fr; }
+        }
+
+        .pity-card {
+            background: var(--bg-card, #111317);
+            border: 1px solid var(--border-color, #232730);
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 120px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .pity-card:hover {
+            border-color: var(--gold-accent, #d4af37);
+        }
+
+        .pity-card.active {
+            border-color: var(--gold-accent, #d4af37);
+            background: #15181e;
+        }
+
+        .pity-row {
+            font-size: 1.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 4px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pity-row.gold { color: #f59e0b; }
+        .pity-row.purple { color: #a855f7; }
+
+        .pity-row span {
+            font-size: 0.75rem;
+            color: var(--text-muted, #8b92a0);
+            font-weight: 600;
+        }
+
+        .pity-title {
+            position: relative;
+            z-index: 2;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: var(--text-main, #f3f4f6);
+            margin-top: 12px;
+            text-transform: uppercase;
+        }
+
+        .tracker-panel {
+            background: var(--bg-card, #111317);
+            border: 1px solid var(--border-color, #232730);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .panel-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--text-main, #fff);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .summary-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .summary-box {
+            background: var(--bg-main, #0b0d10);
+            border: 1px solid var(--border-color, #232730);
+            border-radius: 6px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .summary-value { font-size: 1.5rem; font-weight: 800; color: var(--text-main, #fff); }
+        .summary-value.gold { color: #f59e0b; }
+        .summary-value.purple { color: #a855f7; }
+        .summary-label { font-size: 0.7rem; color: var(--text-muted, #8b92a0); text-transform: uppercase; font-weight: 700; margin-top: 4px; }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.85rem;
+            margin-top: 12px;
+        }
+
+        .history-table th {
+            color: var(--text-muted, #8b92a0);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color, #232730);
+        }
+
+        .history-table td {
+            padding: 16px 12px;
+            border-bottom: 1px solid var(--border-color, #232730);
+            color: var(--text-muted, #8b92a0);
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR DYNAMIQUE -->
+    <div id="site-header"></div>
+    <script src="../js/components/navbar.js"></script>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main id="main-content" class="container" style="padding-top: 40px; padding-bottom: 60px;">
+
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">Tracker d'Invocations</h2>
+                <p class="section-description">Suivez vos pitys et l'historique de vos bannières.</p>
+            </div>
+        </div>
+
+        <div class="tracker-layout">
+
+            <!-- COLONNE GAUCHE : SÉLECTION DES BANNIÈRES / PITY -->
+            <div class="left-panel">
+                <div class="pity-card active" data-banner="character">
+                    <div class="pity-row gold">0 <span>/ 80 PITY 5★</span></div>
+                    <div class="pity-row purple">0 <span>/ 10 PITY 4★</span></div>
+                    <div class="pity-title">Perso Limité</div>
+                </div>
+
+                <div class="pity-card" data-banner="weapon">
+                    <div class="pity-row gold">0 <span>/ 80 PITY 5★</span></div>
+                    <div class="pity-row purple">0 <span>/ 10 PITY 4★</span></div>
+                    <div class="pity-title">Arme Limitée</div>
+                </div>
+
+                <div class="pity-card" data-banner="standard">
+                    <div class="pity-row gold">0 <span>/ 80 PITY 5★</span></div>
+                    <div class="pity-row purple">0 <span>/ 10 PITY 4★</span></div>
+                    <div class="pity-title">Perso Permanent</div>
+                </div>
+            </div>
+
+            <!-- COLONNE DROITE : STATS & HISTORIQUE -->
+            <div class="right-panel">
+
+                <!-- STATISTIQUES GLOBALES -->
+                <div class="tracker-panel">
+                    <div class="panel-header">
+                        <div class="panel-title" id="active-banner-title">Statistiques Globales — Perso Limité</div>
+                    </div>
+                    <div class="summary-grid">
+                        <div class="summary-box">
+                            <div class="summary-value">0</div>
+                            <div class="summary-label">Invocations</div>
+                        </div>
+                        <div class="summary-box">
+                            <div class="summary-value">0</div>
+                            <div class="summary-label">Astrites</div>
+                        </div>
+                        <div class="summary-box">
+                            <div class="summary-value gold">0</div>
+                            <div class="summary-label">5★ Obtenus</div>
+                        </div>
+                        <div class="summary-box">
+                            <div class="summary-value purple">0</div>
+                            <div class="summary-label">4★ Obtenus</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABLEAU D'HISTORIQUE -->
+                <div class="tracker-panel">
+                    <div class="panel-header">
+                        <div class="panel-title">Historique d'Invocations</div>
+                    </div>
+                    
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Objet</th>
+                                <th>Pity</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="4" style="padding: 40px; text-align: center;">
+                                    Aucune invocation enregistrée pour le moment. L'historique sera disponible à la sortie du jeu.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER COMPLET DU SITE -->
+    <footer class="site-footer">
+        <div class="footer-main">
+            <div class="container footer-container">
+                <div class="footer-brand">
+                    <a href="../index.html" class="footer-logo">
+                        <span class="footer-logo-main">BASWEYY</span>
+                        <span class="footer-logo-sub">GUIDE</span>
+                    </a>
+                    <p class="footer-description">L'archive communautaire dédiée à Silver Palace.</p>
+                </div>
+                <div class="footer-column">
+                    <span class="footer-column-title">NAVIGATION</span>
+                    <a href="../index.html">Accueil</a>
+                    <a href="guides.html">Guides</a>
+                    <a href="characters.html">Personnages</a>
+                    <a href="teams.html">Teams</a>
+                    <a href="tier-list.html">Tier List</a>
+                    <a href="news.html">Actualités</a>
+                </div>
+                <div class="footer-column">
+                    <span class="footer-column-title">COMMUNAUTÉ</span>
+                    <a href="#">Discord</a>
+                    <a href="#">Twitch</a>
+                    <a href="#">TikTok</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <span>© 2026 BASWEYY GUIDE</span>
+                <span>Site communautaire non officiel</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DE GESTION DES CLICS SUR LES CARTES -->
+    <script>
+        document.querySelectorAll('.pity-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.pity-card').forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                
+                const title = card.querySelector('.pity-title').textContent;
+                const titleContainer = document.getElementById('active-banner-title');
+                if (titleContainer) {
+                    titleContainer.textContent = `Statistiques Globales — ${title}`;
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personnages — BASWEYY GUIDE</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/pages/characters.css">
+</head>
+
+<body>
+
+<div id="site-header"></div>
+
+<!-- ========================================= -->
+<!-- HERO -->
+<!-- ========================================= -->
+<section class="characters-hero">
+    <div class="container">
+       
+        <h1 class="characters-hero-title">
+            Les
+            <span>Personnages</span>
+        </h1>
+        <p class="characters-hero-description">
+            Retrouvez tous les personnages de Silver Palace,
+            leurs rôles, leurs éléments et leurs informations
+            essentielles.
+        </p>
+    </div>
+</section>
+
+<!-- ========================================= -->
+<!-- FILTERS -->
+<!-- ========================================= -->
+<section class="characters-tools">
+    <div class="container">
+        <div class="characters-tools-inner">
+            <!-- SEARCH -->
+            <div class="characters-search">
+                <span class="characters-search-icon">⌕</span>
+                <input
+                    type="text"
+                    id="character-search"
+                    placeholder="Rechercher un personnage..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <!-- FILTERS -->
+            <div class="characters-filters">
+                <button class="character-filter active" type="button" data-filter="all">Tous</button>
+                <button class="character-filter" type="button" data-filter="dps">DPS</button>
+                <button class="character-filter" type="button" data-filter="sub-dps">Sub-DPS</button>
+                <button class="character-filter" type="button" data-filter="support">Support</button>
+            </div>
+
+            <!-- COUNTER -->
+            <div class="characters-count">
+                <span id="characters-visible">0</span>
+                <span>PERSONNAGES</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================================= -->
+<!-- CHARACTER LIST (VIDE : INJECTÉ PAR JS) -->
+<!-- ========================================= -->
+<section class="characters-list">
+    <div class="container">
+        <div class="characters-grid" id="characters-grid">
+            <!-- EMPTY STATE -->
+            <div class="characters-empty" id="characters-empty" style="display: none;">
+                <span class="characters-empty-icon">◌</span>
+                <h2>Aucun personnage trouvé</h2>
+                <p>Essayez de modifier votre recherche ou vos filtres.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<!-- ========================================= -->
+<!-- FOOTER -->
+<!-- ========================================= -->
+<footer class="site-footer">
+    <div class="footer-main">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="../index.html" class="footer-logo">
+                    <span class="footer-logo-main">BASWEYY</span>
+                    <span class="footer-logo-sub">GUIDE</span>
+                </a>
+                <p class="footer-description">
+                    L'archive communautaire dédiée à Silver Palace.
+                </p>
+            </div>
+
+            <div class="footer-column">
+                <span class="footer-column-title">NAVIGATION</span>
+                <a href="../index.html">Accueil</a>
+                <a href="guides.html">Guides</a>
+                <a href="characters.html">Personnages</a>
+                <a href="teams.html">Teams</a>
+                <a href="tier-list.html">Tier List</a>
+                <a href="news.html">Actualités</a>
+            </div>
+
+            <div class="footer-column">
+                <span class="footer-column-title">COMMUNAUTÉ</span>
+                <a href="#">Discord</a>
+                <a href="#">Twitch</a>
+                <a href="#">TikTok</a>
+                <a href="#">YouTube</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="container footer-bottom-inner">
+            <span>© 2026 BASWEYY GUIDE</span>
+            <span>Site communautaire non officiel</span>
+        </div>
+    </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="../js/components/navbar.js"></script>
+<script src="../js/data/characters.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const grid = document.getElementById("characters-grid");
+        const counterSpan = document.getElementById("characters-visible");
+        const emptyState = document.getElementById("characters-empty");
+
+        if (!grid || typeof charactersData === "undefined") return;
+
+        function renderGrid(data) {
+            // Nettoie la grille tout en gardant l'élément emptyState s'il existe
+            grid.innerHTML = "";
+            
+            if (data.length === 0) {
+                if (emptyState) {
+                    emptyState.style.display = "block";
+                    grid.appendChild(emptyState);
+                }
+                if (counterSpan) counterSpan.textContent = "0";
+                return;
+            }
+
+            if (emptyState) emptyState.style.display = "none";
+
+           data.forEach(char => {
+                const article = document.createElement("article");
+                article.className = "character-card";
+                article.dataset.role = char.role;
+                article.dataset.elem = char.elem; // <-- LIGNE TRÈS IMPORTANTE À AJOUTER
+                article.dataset.name = char.name.toLowerCase();
+
+                article.innerHTML = `
+                    <a href="${char.link || 'character.html?id=' + char.id}" class="character-card-link">
+                        <div class="character-card-image">
+                            <div class="character-image-placeholder" style="${char.image ? 'background-image: url(\'' + char.image + '\'); background-size: cover; background-position: center;' : ''}">
+                                ${char.image ? '' : 'CHARACTER'}
+                            </div>
+                            <span class="character-rarity">${char.star}★</span>
+                            <span class="character-element">${char.elem.toUpperCase()}</span>
+                        </div>
+                        <div class="character-card-content">
+                            <span class="character-role">${char.roleLabel || char.role.toUpperCase()}</span>
+                            <h2 class="character-name">${char.name}</h2>
+                            <div class="character-card-meta">
+                                <span>Silver Palace</span>
+                                <span>→</span>
+                            </div>
+                        </div>
+                    </a>
+                `;
+                grid.appendChild(article);
+            });
+
+            if (counterSpan) {
+                counterSpan.textContent = data.length;
+            }
+        }
+
+        renderGrid(charactersData);
+    });
+</script>
+</body>
+</html>

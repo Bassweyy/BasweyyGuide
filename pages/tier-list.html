@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tier List — BASWEYY GUIDE</title>
+    <meta name="description" content="Découvrez le classement des personnages de Silver Palace sur BASWEYY GUIDE.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/pages/tier-list.css">
+</head>
+
+<body>
+    <div id="site-header"></div>
+
+    <main id="main-content" class="tier-page">
+        <section class="tier-hero">
+            <div class="container tier-hero-inner">
+                <div class="tier-hero-copy">
+                    <span class="tier-eyebrow">SILVER PALACE / CLASSEMENT</span>
+                    <h1>Tier <span>List</span></h1>
+                    <p>
+                        Retrouvez le classement des personnages de Silver Palace
+                        et identifiez ceux qui correspondent le mieux à votre équipe.
+                    </p>
+                    <div class="tier-updated">
+                        <span class="tier-status-dot"></span>
+                        CLASSEMENT COMMUNAUTAIRE
+                    </div>
+                </div>
+
+                <div class="tier-hero-mark" aria-hidden="true">
+                    <span class="tier-mark-letter">S</span>
+                    <span class="tier-mark-caption">RANKING ARCHIVE</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="tier-content container">
+            <div class="tier-toolbar">
+                <div>
+                    <span class="tier-eyebrow">THE RANKING</span>
+                    <h2>Classement des personnages</h2>
+                </div>
+
+                <label class="tier-filter-label" for="tier-role-filter">
+                    Rôle
+                    <select id="tier-role-filter">
+                        <option value="all">Tous les rôles</option>
+                        <option value="dps">DPS</option>
+                        <option value="support">Soutien</option>
+                        <option value="tank">Tank</option>
+                        <option value="other">Autres rôles</option>
+                    </select>
+                </label>
+            </div>
+
+            <p class="tier-note">
+                Sélectionnez un portrait pour consulter la fiche du personnage.
+            </p>
+
+            <div id="tier-list-container" class="tier-list-container">
+                <p class="tier-loading">Chargement du classement…</p>
+            </div>
+
+            <p id="tier-empty" class="tier-empty" hidden>
+                Aucun personnage ne correspond à ce filtre.
+            </p>
+
+            <p class="tier-disclaimer">
+                Les rangs sont configurables et ne constituent pas un classement officiel.
+            </p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-main">
+            <div class="container footer-container">
+                <div class="footer-brand">
+                    <a href="../index.html" class="footer-logo">
+                        <span class="footer-logo-main">BASWEYY</span>
+                        <span class="footer-logo-sub">GUIDE</span>
+                    </a>
+                    <p class="footer-description">
+                        L'archive communautaire dédiée à Silver Palace.
+                    </p>
+                </div>
+
+                <div class="footer-column">
+                    <span class="footer-column-title">NAVIGATION</span>
+                    <a href="../index.html">Accueil</a>
+                    <a href="guides.html">Guides</a>
+                    <a href="characters.html">Personnages</a>
+                    <a href="teams.html">Teams</a>
+                    <a href="tier-list.html">Tier List</a>
+                    <a href="news.html">Actualités</a>
+                </div>
+
+                <div class="footer-column">
+                    <span class="footer-column-title">COMMUNAUTÉ</span>
+                    <a href="#">Discord</a>
+                    <a href="#">Twitch</a>
+                    <a href="#">TikTok</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <span>© 2026 BASWEYY GUIDE</span>
+                <span>Site communautaire non officiel</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/components/navbar.js"></script>
+    <script src="../js/data/characters.js"></script>
+    <script src="../js/pages/tier-list.js"></script>
+</body>
+</html>

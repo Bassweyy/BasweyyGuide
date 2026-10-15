@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bien débuter : Guide complet — BASWEYY GUIDE</title>
+  
+  <!-- POLICES GOOGLE -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS DU DESIGN SYSTEM -->
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <link rel="stylesheet" href="../css/footer.css">
+
+  <style>
+    /* STYLES SPÉCIFIQUES AU GUIDE */
+    .guide-container {
+      max-width: 900px;
+      margin: 50px auto 100px;
+      padding: 0 var(--container-padding);
+    }
+
+    .guide-header {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .guide-tag {
+      color: var(--gold-light);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .guide-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      margin: 0 0 15px 0;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .guide-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* VIDÉO */
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 50px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+    }
+
+    /* SECTIONS */
+    .guide-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 35px;
+      margin-bottom: 30px;
+    }
+
+    .guide-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .guide-section h2::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 20px;
+      background-color: var(--gold);
+      border-radius: 2px;
+    }
+
+    .guide-section p {
+      color: var(--text-secondary);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    /* ÉTAPES */
+    .steps-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .step-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .step-number {
+      background: var(--gold);
+      color: var(--text-dark);
+      font-weight: 800;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.9rem;
+    }
+
+    .step-content h3 {
+      font-family: var(--font-display);
+      margin: 0 0 6px 0;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+    }
+
+    .step-content p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    /* GRILLE 2 COLONNES */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .feature-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+    }
+
+    .feature-box h3 {
+      font-family: var(--font-display);
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+    }
+
+    .feature-box p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    /* TABLEAU */
+    .banner-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    .banner-table th, .banner-table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .banner-table th {
+      color: var(--text-primary);
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .banner-table td {
+      color: var(--text-secondary);
+    }
+
+    .banner-table td:last-child {
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .guide-title { font-size: 2rem; }
+      .guide-section { padding: 20px; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR DYNAMIQUE -->
+  <header id="site-header"></header>
+
+  <!-- CONTENU PRINCIPAL DU GUIDE -->
+  <main class="guide-container" id="main-content">
+    <div class="guide-header">
+      <span class="guide-tag">FONDAMENTAUX — DÉBUTANT</span>
+      <h1 class="guide-title">Bien débuter : Guide complet pour progresser vite</h1>
+      <p class="guide-subtitle">Toutes les bases indispensables à connaître pour éviter de gaspiller vos ressources dès le début et prendre une longueur d'avance.</p>
+    </div>
+
+    <!-- VIDÉO -->
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/TON_ID_DE_VIDEO" title="Guide Débutant Basweyy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <!-- SECTION 1 : QUE FAIRE EN PREMIER -->
+    <section class="guide-section">
+      <h2>Que faire en premier</h2>
+      <p>Les étapes suivent un chemin critique clair. Le suivre dans l'ordre vous permet d'atteindre une équipe active plus rapidement que d’explorer au hasard, car chaque étape prépare la suivante.</p>
+      
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Terminez le prologue</h3>
+            <p>Cela bloque le Palais Mental et les mécaniques d’enquête centrales, donc peu d’autres choses s’ouvrent vraiment tant que ce n’est pas terminé.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Décidez-vous d’une équipe de départ</h3>
+            <p>Vise un seul causeur de dégâts fiable et un seul soutien avant de répartir davantage les ressources.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Apprenez comment fonctionne la résonance</h3>
+            <p>Comprendre les attributs du réacteur vous évite de construire une équipe qui sous-performe discrètement.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Commencez à collectionner des motifs</h3>
+            <p>Les emplacements tête, corps et accessoires comptent tous, et plus vite vous les associez à l'identité, mieux c'est.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Résoudre les premières affaires</h3>
+            <p>La progression de l’histoire débloque le reste des fonctionnalités, y compris les systèmes mentionnés ci-dessus.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2 : 4 HABITUDES -->
+    <section class="guide-section">
+      <h2>Quatre habitudes qui se portent immédiatement à payer</h2>
+      <p>Avant tout système individuel, il y a quatre choses que les joueurs expérimentés font sans réfléchir et que les nouveaux joueurs passent généralement à côté.</p>
+      
+      <div class="grid-2">
+        <div class="feature-box">
+          <h3>Apprenez d’abord la parade</h3>
+          <p>Une parade propre étourdit l’attaquant, rend de l’endurance et ouvre une fenêtre de dégâts. C’est l’entrée de plus grande valeur du jeu.</p>
+        </div>
+        <div class="feature-box">
+          <h3>Attributs de correspondance volontaires</h3>
+          <p>La résonance récompense les attributs partagés du réacteur au sein de votre équipe. Construire autour de ça est un dégât gratuit que tu laisserais autrement.</p>
+        </div>
+        <div class="feature-box">
+          <h3>Ne tirez jamais sur la bannière standard</h3>
+          <p>La monnaie dépensée en dehors d’une bannière de hausse des taux est le gaspillage le plus courant au début. Restez à l’œuvre jusqu’à ce que quelque chose que vous voulez soit mis en avant.</p>
+        </div>
+        <div class="feature-box">
+          <h3>De l’équipement à l’identité, pas à la rareté</h3>
+          <p>Chaque personnage préfère des motifs adaptés à son identité. Un motif de rareté inférieure bien assorti l’emporte souvent sur un motif supérieur dépareillé.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 : ÉQUIPE -->
+    <section class="guide-section">
+      <h2>Construire votre première équipe & Effectif</h2>
+      <p>Une équipe standard est composée de quatre personnages : un infligeant de dégâts pour porter le combat, un soutien pour les soins et les buffs, et deux emplacements flexibles pour les dégâts secondaires ou l’utilité. Adopte cette forme par défaut jusqu’à ce que tu connaisses assez bien le jeu pour avoir une raison de ne pas le faire.</p>
+      <p>L’autre moitié est la résonance. Partager les attributs du réacteur accorde des bonus croissants : deux personnages correspondants augmentent solidement, trois en donnant un plus grand plus une compétence de résonance, et quatre offrant l'effet complet avec une version améliorée. <em>Ignis, Glacies, Gravitas et Fulmen</em> ont des chiffres confirmés ; <em>Radiatio, Alba et Ferrugo</em> sont des attributs confirmés dont les valeurs n'ont pas été communiquées.</p>
+      <p><strong>Votre effectif de départ :</strong> Le Détective est garanti, donc chaque compte commence avec la même ancre. Cendrillon, Argos et Alf se joignent au fil de l'histoire, comblant les dégâts, le soutien et les pièces flexibles nécessaires pour la forme des quatre personnages ci-dessus. Cela suffit à réussir confortablement le contenu précoce pendant que vous déterminez où placer vos ressources.</p>
+    </section>
+
+    <!-- SECTION 4 : BANNIÈRES -->
+    <section class="guide-section">
+      <h2>Bannières : Tarifs et Garanties</h2>
+      <p>Un personnage 5 étoiles en vedette est garanti dans <strong>les 100 Révélations</strong>. Cette garantie se réinitialise dès que vous obtenez un 5 étoiles en vedette, donc c’est un compteur continu plutôt qu’un poste de stockage permanent. Prévoyez autour de 100 et considérez tout ce qui est plus tôt comme de la chance.</p>
+      
+      <table class="banner-table">
+        <tr>
+          <th>Mécanique</th>
+          <th>Valeur</th>
+        </tr>
+        <tr>
+          <td>Taux de base 5 étoiles</td>
+          <td>0.8%</td>
+        </tr>
+        <tr>
+          <td>Taux global 5 étoiles (garanties incluses)</td>
+          <td>1.8%</td>
+        </tr>
+        <tr>
+          <td>Garantie 5 étoiles en vedette</td>
+          <td>dans 100 Révélations</td>
+        </tr>
+        <tr>
+          <td>Taux de base 4 étoiles</td>
+          <td>6%</td>
+        </tr>
+        <tr>
+          <td>Taux global 4 étoiles (garanties incluses)</td>
+          <td>13%</td>
+        </tr>
+        <tr>
+          <td>Garantie 4 étoiles</td>
+          <td>dans les 10 Révélations</td>
+        </tr>
+        <tr>
+          <td>Chance qu'un 4 étoiles soit mis en avant</td>
+          <td>50%</td>
+        </tr>
+        <tr>
+          <td>Garantie 4 étoiles en vedette</td>
+          <td>dans 20 Apocalypse</td>
+        </tr>
+        <tr>
+          <td>Taux de base Motive 3 étoiles</td>
+          <td>93.2%</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- SECTION 5 : ÉQUIPEMENTS -->
+    <section class="guide-section">
+      <h2>Équipements : Motifs, Outils, Épiphanies & Catalyseurs</h2>
+      
+      <h3 style="color: var(--text-primary); font-family: var(--font-display); margin-top: 20px;">Motifs</h3>
+      <p>Il existe des bannières Standard et Limited Motive. Les Motifs sont essentiellement les armes du Palais d'Argent, et chaque personnage peut équiper une carte Motif à la fois. Ils varient de 3 à 5 étoiles et sont séparés par identité de personnage (Héros, Témoin, Sauveur, Gardien, Hors-la-loi). Un Motif ne produit son effet que lorsqu’il est équipé d’un personnage du même type d’identité.</p>
+
+      <h3 style="color: var(--text-primary); font-family: var(--font-display); margin-top: 20px;">Outils</h3>
+      <p>Les outils sont un équipement typique en quatre pièces. Quand vous avez quatre unités du même ensemble équipées, l'effet de set s'active. Farmez-les depuis les étapes de ressources Implémentaire et Épiphanie. Ils ont des statistiques fixes et ne varient que selon le niveau de la pièce elle-même.</p>
+
+      <h3 style="color: var(--text-primary); font-family: var(--font-display); margin-top: 20px;">Épiphanies</h3>
+      <p>Les Épiphanies tombent dans les mêmes niveaux que les Implements, mais de niveaux différents. Chaque personnage peut en équiper une, avec un niveau fixe correspondant au Livre. Les améliorer demande des duplicants et des « Encres » pour écrire des Addendums (stats bonus).</p>
+
+      <h3 style="color: var(--text-primary); font-family: var(--font-display); margin-top: 20px;">Catalyseurs</h3>
+      <p>Celles-ci sont équipées pour votre Réacteur depuis l'écran Teams (jusqu'à 3 par personnage selon un coût total limité qui augmente avec votre niveau de Crise/Monde).</p>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-main">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="../index.html" class="footer-logo">
+                    <span class="footer-logo-main">BASWEYY</span>
+                    <span class="footer-logo-sub">GUIDE</span>
+                </a>
+                <p class="footer-description">L'archive communautaire dédiée à Silver Palace.</p>
+            </div>
+            <div class="footer-column">
+                <span class="footer-column-title">NAVIGATION</span>
+                <a href="../index.html">Accueil</a>
+                <a href="guides.html">Guides</a>
+                <a href="characters.html">Personnages</a>
+                <a href="teams.html">Teams</a>
+                <a href="tier-list.html">Tier List</a>
+                <a href="news.html">Actualités</a>
+            </div>
+            <div class="footer-column">
+                <span class="footer-column-title">COMMUNAUTÉ</span>
+                <a href="#">Discord</a>
+                <a href="#">Twitch</a>
+                <a href="#">TikTok</a>
+                <a href="#">YouTube</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container footer-bottom-inner">
+            <span>© 2026 BASWEYY GUIDE</span>
+            <span>Site communautaire non officiel</span>
+        </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT NAVBAR (Gère la navbar injectée, le thème sombre/clair et la recherche) -->
+  <script src="../js/components/navbar.js"></script>
+</body>
+</html>
