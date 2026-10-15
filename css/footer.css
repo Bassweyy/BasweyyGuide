@@ -1,0 +1,237 @@
+/* ============================================================
+   BASWEYY GUIDE — FOOTER
+   ============================================================ */
+
+.site-footer {
+    position: relative;
+    margin-top: 120px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(184, 155, 98, 0.07),
+            transparent 45%
+        ),
+        var(--bg-secondary);
+
+    border-top: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.site-footer::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+
+    width: 120px;
+    height: 1px;
+
+    transform: translateX(-50%);
+
+    background: var(--gold);
+}
+
+.footer-main {
+    padding: 90px 0 70px;
+}
+
+.footer-container {
+    display: grid;
+
+    grid-template-columns:
+        1.4fr
+        1fr
+        1fr;
+
+    gap: 80px;
+
+    align-items: start;
+}
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-logo {
+    display: inline-flex;
+    align-items: baseline;
+
+    gap: 9px;
+
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.footer-logo-main {
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 2.4rem;
+    font-weight: 600;
+
+    letter-spacing: 5px;
+    line-height: 1;
+}
+
+.footer-logo-sub {
+    color: var(--gold);
+
+    font-family: "Plus Jakarta Sans", sans-serif;
+
+    font-size: 0.62rem;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+.footer-description {
+    max-width: 280px;
+
+    margin-top: 20px;
+
+    color: var(--text-muted);
+
+    font-size: 0.72rem;
+    line-height: 1.8;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 13px;
+}
+
+.footer-column-title {
+    margin-bottom: 9px;
+
+    color: var(--gold-light);
+
+    font-size: 0.58rem;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.footer-column a {
+    position: relative;
+
+    color: var(--text-muted);
+
+    font-size: 0.7rem;
+
+    text-decoration: none;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.footer-column a::before {
+    content: "";
+
+    position: absolute;
+
+    left: -14px;
+    top: 50%;
+
+    width: 5px;
+    height: 1px;
+
+    background: var(--gold);
+
+    opacity: 0;
+
+    transform: translateY(-50%);
+
+    transition:
+        opacity 0.25s ease,
+        left 0.25s ease;
+}
+
+.footer-column a:hover {
+    color: var(--text-primary);
+    transform: translateX(5px);
+}
+
+.footer-column a:hover::before {
+    left: -10px;
+    opacity: 1;
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--border);
+
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.footer-bottom-inner {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 65px;
+}
+
+.footer-bottom-inner span {
+    color: var(--text-muted);
+
+    font-size: 0.55rem;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+@media (max-width: 800px) {
+
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 55px 40px;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .site-footer {
+        margin-top: 80px;
+    }
+
+    .footer-main {
+        padding: 65px 0 55px;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 45px 25px;
+    }
+
+    .footer-logo-main {
+        font-size: 2rem;
+    }
+
+    .footer-bottom-inner {
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 8px;
+
+        padding: 18px 0;
+    }
+
+}

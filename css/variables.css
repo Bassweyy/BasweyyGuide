@@ -1,0 +1,171 @@
+/* =========================================================
+BASWEYY GUIDE — DESIGN SYSTEM
+Variables globales
+========================================================= */
+
+:root {
+color-scheme: dark;
+
+
+/* BACKGROUNDS */
+--bg-primary: #08090B;
+--bg-secondary: #0E1014;
+--bg-card: #14171C;
+--bg-card-hover: #191C21;
+--bg-elevated: #1D2026;
+--bg-overlay: rgba(8, 9, 11, 0.82);
+
+/* BORDERS */
+--border: #292E35;
+--border-light: #373D45;
+--border-subtle: rgba(214, 217, 220, 0.10);
+
+/* TEXT */
+--text-primary: #E8EAED;
+--text-secondary: #9BA1A8;
+--text-muted: #686F78;
+--text-dark: #08090B;
+
+/* ACCENTS */
+--silver: #D6D9DC;
+--silver-dark: #A9B0B8;
+--gold: #B89B62;
+--gold-light: #D0B77D;
+--steel: #6E7C8B;
+
+/* EFFECTS */
+--gold-glow: rgba(184, 155, 98, 0.18);
+--silver-glow: rgba(214, 217, 220, 0.10);
+
+--shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.20);
+--shadow-md: 0 10px 35px rgba(0, 0, 0, 0.30);
+--shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.45);
+
+/* TYPOGRAPHY */
+--font-display: "Cormorant Garamond", serif;
+--font-body: "Plus Jakarta Sans", sans-serif;
+
+/* TEXT SIZES */
+--text-xs: 0.70rem;
+--text-sm: 0.80rem;
+--text-md: 0.95rem;
+--text-lg: 1.15rem;
+
+--heading-sm: 1.6rem;
+--heading-md: 2.4rem;
+--heading-lg: 3.8rem;
+--heading-xl: 5.5rem;
+
+/* SPACING */
+--space-1: 0.25rem;
+--space-2: 0.5rem;
+--space-3: 0.75rem;
+--space-4: 1rem;
+--space-5: 1.5rem;
+--space-6: 2rem;
+--space-7: 3rem;
+--space-8: 4rem;
+--space-9: 6rem;
+--space-10: 8rem;
+
+/* RADIUS */
+--radius-sm: 6px;
+--radius-md: 10px;
+--radius-lg: 16px;
+--radius-xl: 24px;
+--radius-pill: 999px;
+
+/* NAVBAR */
+--nav-height: 68px;
+--nav-bg: rgba(10, 11, 14, 0.88);
+--nav-border: rgba(214, 217, 220, 0.12);
+--nav-blur: 20px;
+
+/* TRANSITIONS */
+--transition-fast: 180ms ease;
+--transition-normal: 280ms ease;
+--transition-slow: 450ms ease;
+
+/* CONTAINER */
+--container-width: 1280px;
+--container-padding: 24px;
+
+/* Z-INDEX */
+--z-content: 1;
+--z-overlay: 10;
+--z-navbar: 100;
+--z-modal: 1000;
+
+
+}
+
+/* =========================================================
+LIGHT THEME
+========================================================= */
+
+[data-theme="light"] {
+color-scheme: light;
+
+
+/* BACKGROUNDS */
+--bg-primary: #F4F3F0;
+--bg-secondary: #EAE8E3;
+--bg-card: #FFFFFF;
+--bg-card-hover: #F6F3EC;
+--bg-elevated: #E5E1D8;
+--bg-overlay: rgba(244, 243, 240, 0.94);
+
+/* BORDERS */
+--border: #D8D5CD;
+--border-light: #C4BFB4;
+--border-subtle: rgba(35, 39, 43, 0.10);
+
+/* TEXT */
+--text-primary: #202328;
+--text-secondary: #555B63;
+--text-muted: #777C82;
+--text-dark: #FFFFFF;
+
+/* ACCENTS */
+--silver: #626B74;
+--silver-dark: #7B838B;
+--gold: #92743D;
+--gold-light: #806329;
+--steel: #63717F;
+
+/* EFFECTS */
+--gold-glow: rgba(146, 116, 61, 0.12);
+--silver-glow: rgba(70, 78, 86, 0.08);
+
+--shadow-sm: 0 4px 15px rgba(20, 24, 30, 0.06);
+--shadow-md: 0 10px 35px rgba(20, 24, 30, 0.10);
+--shadow-lg: 0 20px 60px rgba(20, 24, 30, 0.16);
+
+/* NAVBAR */
+--nav-bg: rgba(255, 255, 255, 0.90);
+--nav-border: rgba(35, 39, 43, 0.12);
+
+
+}
+
+/* =========================================================
+PAGE TRANSITIONS
+========================================================= */
+
+html {
+background: var(--bg-primary);
+}
+
+body {
+background-color: var(--bg-primary);
+color: var(--text-primary);
+transition:
+background-color 0.25s ease,
+color 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+body {
+transition: none;
+}
+}

@@ -1,0 +1,646 @@
+/* ============================================================
+BASWEYY GUIDE — GUIDES PAGE
+============================================================ */
+
+/* ============================================================
+HERO
+============================================================ */
+
+.guides-hero {
+position: relative;
+
+padding: 120px 0 80px;
+
+overflow: hidden;
+
+}
+
+.guides-hero::before {
+content: "";
+
+position: absolute;
+
+top: -180px;
+left: 50%;
+
+width: 700px;
+height: 500px;
+
+transform: translateX(-50%);
+
+background:
+    radial-gradient(
+        circle,
+        rgba(184, 155, 98, 0.10),
+        transparent 65%
+    );
+
+pointer-events: none;
+
+}
+
+.guides-hero .container {
+position: relative;
+z-index: 1;
+}
+
+.guides-hero-title {
+max-width: 850px;
+
+margin: 18px 0 20px;
+
+color: var(--text-primary);
+
+font-family: "Cormorant Garamond", serif;
+
+font-size: clamp(3.5rem, 7vw, 6.5rem);
+
+font-weight: 500;
+
+line-height: 0.9;
+
+letter-spacing: -2px;
+
+}
+
+.guides-hero-title span {
+display: block;
+
+color: var(--gold-light);
+
+font-style: italic;
+
+}
+
+.guides-hero-description {
+max-width: 620px;
+
+margin: 0;
+
+color: var(--text-secondary);
+
+font-size: 0.9rem;
+
+line-height: 1.8;
+
+}
+
+/* ============================================================
+FILTRES
+============================================================ */
+
+.guides-filters-section {
+padding: 14px 0;
+
+}
+
+.guides-filters {
+display: flex;
+
+align-items: center;
+
+gap: 8px;
+
+overflow-x: auto;
+
+scrollbar-width: none;
+
+}
+
+.guides-filters::-webkit-scrollbar {
+display: none;
+}
+
+.guide-filter {
+flex-shrink: 0;
+
+padding: 10px 16px;
+
+background: transparent;
+
+border: 1px solid var(--border);
+
+color: var(--text-muted);
+
+font-family: "Plus Jakarta Sans", sans-serif;
+
+font-size: 0.62rem;
+
+font-weight: 700;
+
+letter-spacing: 1.2px;
+
+text-transform: uppercase;
+
+cursor: pointer;
+
+transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+
+}
+
+.guide-filter:hover {
+color: var(--text-primary);
+
+border-color: var(--border-light);
+
+transform: translateY(-1px);
+
+}
+
+.guide-filter.active {
+background: var(--silver);
+
+border-color: var(--silver);
+
+color: var(--text-dark);
+
+}
+
+/* ============================================================
+FEATURED GUIDE
+============================================================ */
+
+.featured-guide-section {
+padding: 80px 0 100px;
+}
+
+.featured-guide {
+display: grid;
+
+grid-template-columns: 1.15fr 0.85fr;
+
+min-height: 440px;
+
+overflow: hidden;
+
+background: var(--bg-card);
+
+border: 1px solid var(--border);
+
+color: var(--text-primary);
+
+text-decoration: none;
+
+transition:
+    border-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+}
+
+.featured-guide:hover {
+transform: translateY(-4px);
+
+border-color: var(--border-light);
+
+box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.35);
+
+}
+
+.featured-guide-image {
+position: relative;
+
+min-height: 440px;
+
+overflow: hidden;
+
+background: var(--bg-secondary);
+
+}
+
+.guide-image-placeholder {
+width: 100%;
+height: 100%;
+
+display: flex;
+
+align-items: center;
+justify-content: center;
+
+background:
+    radial-gradient(
+        circle at 65% 35%,
+        rgba(184, 155, 98, 0.18),
+        transparent 35%
+    ),
+    radial-gradient(
+        circle at 20% 80%,
+        rgba(110, 124, 139, 0.12),
+        transparent 40%
+    ),
+    linear-gradient(
+        135deg,
+        #1A1D22,
+        #08090B
+    );
+
+color: rgba(214, 217, 220, 0.25);
+
+font-family: "Cormorant Garamond", serif;
+
+font-size: 1.2rem;
+
+letter-spacing: 5px;
+
+transition: transform 0.6s ease;
+
+}
+
+.featured-guide:hover .guide-image-placeholder {
+transform: scale(1.04);
+}
+
+.featured-guide-image::after {
+content: "";
+
+position: absolute;
+
+inset: 0;
+
+background:
+    linear-gradient(
+        90deg,
+        transparent 45%,
+        rgba(8, 9, 11, 0.25)
+    );
+
+pointer-events: none;
+
+}
+
+.guide-card-category {
+position: absolute;
+
+top: 18px;
+left: 18px;
+
+z-index: 2;
+
+padding: 7px 11px;
+
+background: rgba(8, 9, 11, 0.82);
+
+border: 1px solid var(--border);
+
+color: var(--gold-light);
+
+font-size: 0.57rem;
+
+font-weight: 700;
+
+letter-spacing: 1.5px;
+
+text-transform: uppercase;
+
+backdrop-filter: blur(10px);
+
+}
+
+.featured-guide-content {
+display: flex;
+
+flex-direction: column;
+
+justify-content: center;
+
+padding: 60px;
+
+}
+
+.guide-card-meta {
+display: block;
+
+margin-bottom: 14px;
+
+color: var(--text-muted);
+
+font-size: 0.58rem;
+
+font-weight: 700;
+
+letter-spacing: 1.6px;
+
+text-transform: uppercase;
+
+}
+
+.featured-guide-title {
+max-width: 500px;
+
+margin: 0;
+
+color: var(--text-primary);
+
+font-family: "Cormorant Garamond", serif;
+
+font-size: clamp(2.4rem, 4vw, 4rem);
+
+font-weight: 500;
+
+line-height: 0.95;
+
+}
+
+.featured-guide-title span {
+display: block;
+
+color: var(--gold-light);
+
+font-style: italic;
+
+}
+
+.featured-guide-description {
+max-width: 470px;
+
+margin: 24px 0 30px;
+
+color: var(--text-secondary);
+
+font-size: 0.78rem;
+
+line-height: 1.8;
+
+}
+
+.guide-card-link {
+display: inline-flex;
+
+align-items: center;
+
+gap: 10px;
+
+width: fit-content;
+
+color: var(--silver);
+
+font-size: 0.62rem;
+
+font-weight: 700;
+
+letter-spacing: 1.3px;
+
+text-transform: uppercase;
+
+}
+
+.guide-card-link span {
+color: var(--gold);
+
+transition: transform 0.25s ease;
+
+}
+
+.featured-guide:hover .guide-card-link span {
+transform: translateX(5px);
+}
+
+/* ============================================================
+LISTE DES GUIDES
+============================================================ */
+
+.guides-list-section {
+padding: 0 0 120px;
+}
+
+.guides-list-section .section-header {
+display: flex;
+
+align-items: flex-end;
+
+justify-content: space-between;
+
+margin-bottom: 40px;
+
+}
+
+.guides-count {
+color: var(--text-muted);
+
+font-size: 0.58rem;
+
+font-weight: 700;
+
+letter-spacing: 1.5px;
+
+text-transform: uppercase;
+
+}
+
+/* ============================================================
+GRILLE
+============================================================ */
+
+.guides-page-grid {
+display: grid;
+
+grid-template-columns:
+    repeat(3, 1fr);
+
+gap: 20px;
+
+}
+
+/* ============================================================
+GUIDE CARD
+============================================================ */
+
+.guide-page-card {
+display: flex;
+
+flex-direction: column;
+
+overflow: hidden;
+
+background: var(--bg-card);
+
+border: 1px solid var(--border);
+
+color: var(--text-primary);
+
+text-decoration: none;
+
+transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+}
+
+.guide-page-card:hover {
+transform: translateY(-5px);
+
+border-color: var(--border-light);
+
+box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.28);
+
+}
+
+.guide-page-card-image {
+position: relative;
+
+height: 210px;
+
+overflow: hidden;
+
+background: var(--bg-secondary);
+
+}
+
+.guide-page-card:hover .guide-image-placeholder {
+transform: scale(1.05);
+}
+
+.guide-page-card-content {
+display: flex;
+
+flex-direction: column;
+
+flex: 1;
+
+padding: 25px;
+
+}
+
+.guide-page-card-title {
+margin: 0;
+
+color: var(--text-primary);
+
+font-family: "Cormorant Garamond", serif;
+
+font-size: 1.65rem;
+
+font-weight: 500;
+
+line-height: 1.05;
+
+}
+
+.guide-page-card-description {
+margin: 14px 0 22px;
+
+color: var(--text-secondary);
+
+font-size: 0.7rem;
+
+line-height: 1.7;
+
+}
+
+.guide-page-card .guide-card-link {
+margin-top: auto;
+}
+
+/* ============================================================
+SECTION LABEL
+============================================================ */
+
+.guides-hero .section-label,
+.guides-list-section .section-label {
+display: inline-block;
+
+color: var(--gold-light);
+
+font-size: 0.58rem;
+
+font-weight: 700;
+
+letter-spacing: 2px;
+
+text-transform: uppercase;
+
+}
+
+/* ============================================================
+RESPONSIVE
+============================================================ */
+
+@media (max-width: 950px) {
+
+    .featured-guide {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-guide-image {
+        min-height: 320px;
+    }
+
+    .featured-guide-content {
+        padding: 45px;
+    }
+
+    .guides-page-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .guides-hero {
+        padding: 90px 0 60px;
+    }
+
+    .guides-hero-title {
+        font-size: 3.6rem;
+        letter-spacing: -1px;
+    }
+
+    .featured-guide-section {
+        padding: 60px 0 80px;
+    }
+
+    .featured-guide-image {
+        min-height: 250px;
+    }
+
+    .featured-guide-content {
+        padding: 32px;
+    }
+
+    .featured-guide-title {
+        font-size: 2.7rem;
+    }
+
+    .guides-list-section {
+        padding-bottom: 80px;
+    }
+
+    .guides-list-section .section-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .guides-page-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 450px) {
+
+.guides-hero-title {
+    font-size: 3rem;
+}
+
+.featured-guide-content {
+    padding: 25px;
+}
+
+.featured-guide-title {
+    font-size: 2.35rem;
+}
+
+.guide-page-card-content {
+    padding: 20px;
+}
+
+}
